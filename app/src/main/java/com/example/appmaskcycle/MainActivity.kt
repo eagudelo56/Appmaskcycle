@@ -11,10 +11,7 @@ class MainActivity : AppCompatActivity() {
 
         Toast.makeText(this,"eeee",Toast.LENGTH_LONG).show()
         //rrrrrrrrr
+
+        /* qqq ta l */
     }
-
-
-    /*qqqqq*/
-
-
 }
