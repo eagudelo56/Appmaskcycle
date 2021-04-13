@@ -13,5 +13,6 @@ class MainActivity : AppCompatActivity() {
         //rrrrrrrrr
 
         /* qqq ta l */
+        //soy viiictor holaaa
     }
 }
