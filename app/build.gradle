@@ -6,6 +6,12 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
+    //necesario para que funcione retrofit
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
         applicationId "com.example.appmaskcycle"
         minSdkVersion 14
@@ -33,5 +39,17 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    //support appcompat
+    implementation "com.android.support:appcompat-v7"
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    //Anko
+    implementation 'org.jetbrains.anko:anko-common:0.9'
+    //material
+    implementation 'com.google.android.material:material:1.1.0'
+    //OkHttp
+    implementation 'com.squareup.okhttp3:okhttp:3.3.1'
 
 }
