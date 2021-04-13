@@ -13,8 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        android:fullBackupContent=""
-        tools:targetApi="m">
+        android:fullBackupContent="true"
+        tools:targetApi="23">
         <!-- android:usesCleartextTraffic = acceder a internet por http-->
         <activity android:name=".MainActivity">
             <intent-filter>
