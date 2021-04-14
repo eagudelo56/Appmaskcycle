@@ -27,16 +27,17 @@ class MainActivity : AppCompatActivity() {
         doAsync {
             val objConexion = Conexion()
             val sql = "select * from usuarios"
-            val llamada =
+            val llamada = /*en esta variable guardamos la llamada al archivo php*/
             objConexion.executeQueryUsuario(sql)
 
-            llamada.enqueue(
-                object : Callback<List<DataUsuarios>>{
-                    override fun onFailure(call: Call<List<DataUsuarios>>, t: Throwable) {
+            llamada.enqueue( /*con este meto EJECUTAMOS la llamada*/
+                object : Callback<List<DataUsuarios>>{ /*palabra clave del metodo*/
+                    override fun onFailure(call: Call<List<DataUsuarios>>, t: Throwable) { /*ERROR*/
+                        Toast.makeText(cont,t.localizedMessage,Toast.LENGTH_LONG).show()
                         Toast.makeText(cont," no funciona",Toast.LENGTH_LONG).show()
                     }
 
-                    override fun onResponse(
+                    override fun onResponse( /*esta bien*/
                         call: Call<List<DataUsuarios>>,
                         response: Response<List<DataUsuarios>>
                     ) {
