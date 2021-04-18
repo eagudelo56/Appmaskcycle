@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import com.example.appmaskcycle.api.Conexion
 import com.example.appmaskcycle.api.DataUsuarios
+import com.example.appmaskcycle.clases.FactoriaUsuarios
 import com.example.appmaskcycle.clases.Usuarios
 import org.jetbrains.anko.doAsync
 import retrofit2.Call
@@ -28,11 +29,8 @@ class MainActivity : AppCompatActivity() {
         val cont =this
 
         doAsync {
-            val objConexion = Conexion()
-            val sql = "select * from usuarios"
-            val llamada = /*en esta variable guardamos la llamada al archivo php*/
-            objConexion.executeQueryUsuario(sql)
-
+            val objDAO = FactoriaUsuarios.getUsuarioDao()
+            val llamada = objDAO.getUsuarioPorId(1)
             llamada.enqueue( /*con este meto EJECUTAMOS la llamada*/
                 object : Callback<List<DataUsuarios>>{ /*palabra clave del metodo*/
                     override fun onFailure(call: Call<List<DataUsuarios>>, t: Throwable) { /*ERROR*/
