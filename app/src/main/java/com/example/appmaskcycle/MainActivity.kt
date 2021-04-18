@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                         val rel = response.body() as List<DataUsuarios>
 
                         //Toast.makeText(cont,rel[0].contrasena,Toast.LENGTH_LONG).show()
-                        Toast.makeText(cont,rel[0].toString(),Toast.LENGTH_LONG).show()
+                        Toast.makeText(cont,rel[0].hello(),Toast.LENGTH_LONG).show()
 
                     }
                 }

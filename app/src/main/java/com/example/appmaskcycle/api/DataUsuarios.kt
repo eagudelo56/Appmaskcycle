@@ -15,7 +15,7 @@ data class DataUsuarios (
 ){
     val aux :String ="xd"
 
-    override  fun toString(): String {
+    fun hello(): String {
         return aux
     }
 }
