@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         doAsync {
             val objDAO = FactoriaUsuarios.getUsuarioDao()
-            val llamada = objDAO.getUsuarioPorId(1)
+            val llamada = objDAO.getUsuarioPorId(2)
             llamada.enqueue( /*con este meto EJECUTAMOS la llamada*/
                 object : Callback<List<DataUsuarios>>{ /*palabra clave del metodo*/
                     override fun onFailure(call: Call<List<DataUsuarios>>, t: Throwable) { /*ERROR*/
