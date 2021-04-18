@@ -12,4 +12,10 @@ data class DataUsuarios (
     val contrasena:String
 
 
-)
+){
+    val aux :String ="xd"
+
+    override  fun toString(): String {
+        return aux
+    }
+}
