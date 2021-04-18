@@ -2,6 +2,7 @@ package com.example.appmaskcycle
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.example.appmaskcycle.api.Conexion
 import com.example.appmaskcycle.api.DataUsuarios
@@ -17,7 +18,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        Toast.makeText(this,"eeee",Toast.LENGTH_LONG).show()
+        //Toast.makeText(this,"eeee",Toast.LENGTH_LONG).show()
+        pruebaNom()
 
     }
 
@@ -41,9 +43,13 @@ class MainActivity : AppCompatActivity() {
                         call: Call<List<DataUsuarios>>,
                         response: Response<List<DataUsuarios>>
                     ) {
+                        //val aux = response.errorBody()
+                        //Log.e("tag",aux.toString())
+
+                        val aux = response.body()
                         val rel = response.body() as List<DataUsuarios>
 
-                        Toast.makeText(cont,rel[0].nombre,Toast.LENGTH_LONG).show()
+                        Toast.makeText(cont,rel[0].contrasena,Toast.LENGTH_LONG).show()
                     }
                 }
             )
