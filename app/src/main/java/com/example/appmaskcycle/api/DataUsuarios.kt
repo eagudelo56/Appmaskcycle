@@ -12,10 +12,4 @@ data class DataUsuarios (
     val contrasena:String
 
 
-){
-    val aux :String ="xd"
-
-    fun hello(): String {
-        return aux
-    }
-}
+)

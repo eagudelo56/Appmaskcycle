@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import com.example.appmaskcycle.api.Conexion
 import com.example.appmaskcycle.api.DataUsuarios
+import com.example.appmaskcycle.clases.Usuarios
 import org.jetbrains.anko.doAsync
 import retrofit2.Call
 import retrofit2.Callback
@@ -49,8 +50,10 @@ class MainActivity : AppCompatActivity() {
                         val aux = response.body()
                         val rel = response.body() as List<DataUsuarios>
 
-                        //Toast.makeText(cont,rel[0].contrasena,Toast.LENGTH_LONG).show()
-                        Toast.makeText(cont,rel[0].hello(),Toast.LENGTH_LONG).show()
+                        val array = Usuarios.convertir(rel)
+
+                        Toast.makeText(cont,array[0].nombre,Toast.LENGTH_LONG).show()
+                        //Toast.makeText(cont,rel[0].hello(),Toast.LENGTH_LONG).show()
 
                     }
                 }
