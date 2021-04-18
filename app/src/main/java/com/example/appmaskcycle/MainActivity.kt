@@ -3,9 +3,7 @@ package com.example.appmaskcycle
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import com.example.appmaskcycle.api.Conexion
 import com.example.appmaskcycle.api.DataUsuarios
 import com.example.appmaskcycle.clases.FactoriaUsuarios
 import com.example.appmaskcycle.clases.Usuarios
@@ -57,16 +55,20 @@ class MainActivity : AppCompatActivity() {
                         //val aux = response.errorBody()
                         //Log.e("tag",aux.toString())
 
-                        val aux = response.body()
-                        val rel = response.body() as List<DataUsuarios>
-
-                        val array = Usuarios.convertir(rel)
-
-                        if(contrasena == array[0].contrasena){
-                            val intent = Intent(cont, HomeActivity::class.java)
-                            startActivity(intent)
+                        val respuesta = response.body()
+                        if(respuesta!=null) {
+                            val array = Usuarios.convertir(respuesta)
+                            if(array.size==1) {
+                                if (contrasena == array[0].contrasena) {
+                                    val intent = Intent(cont, HomeActivity::class.java)
+                                    startActivity(intent)
+                                }else{
+                                    Toast.makeText(cont,"Contraseña Incorrecta",Toast.LENGTH_LONG).show()
+                                }
+                            }else{
+                                Toast.makeText(cont,"Usuario Incorrecto",Toast.LENGTH_LONG).show()
+                            }
                         }
-
                         //Toast.makeText(cont,array[0].nombre,Toast.LENGTH_LONG).show()
                         //Toast.makeText(cont,rel[0].hello(),Toast.LENGTH_LONG).show()
 

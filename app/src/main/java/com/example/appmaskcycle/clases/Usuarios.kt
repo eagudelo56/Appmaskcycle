@@ -22,7 +22,7 @@ class Usuarios(val id:Int,val nombre:String,val contrasena:String) : InterfaceUs
     }
 
     override fun getUsuarioPorNombre(nombre:String): Call<List<DataUsuarios>> {
-        return  c.executeQueryUsuario("select * from usuarios where NOMBRE=$nombre")
+        return  c.executeQueryUsuario("select * from usuarios where NOMBRE='$nombre'")
     }
 
     override fun getUsuarioPorId(id:Int): Call<List<DataUsuarios>> {
