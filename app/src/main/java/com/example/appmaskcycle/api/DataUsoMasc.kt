@@ -2,7 +2,7 @@ package com.example.appmaskcycle.api
 
 import com.google.gson.annotations.SerializedName
 
-data class DataUsoMasc ( //*/
+data class DataUsoMasc (
     @SerializedName("id")
     val id:Int,
     @SerializedName("nombre")
@@ -16,7 +16,7 @@ data class DataUsoMasc ( //*/
     @SerializedName("activa ")
     val activa :Boolean,
     @SerializedName("horas_vida  ")
-    val horas_vida  :String,
+    val horasVida:String,
     @SerializedName("final")
     val final:String,
     @SerializedName("lavados")
