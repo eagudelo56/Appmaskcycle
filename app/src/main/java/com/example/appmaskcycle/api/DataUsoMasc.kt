@@ -10,7 +10,7 @@ data class DataUsoMasc (
     @SerializedName("tipo")
     val tipo:String,
     @SerializedName("t_info")
-    val t_info:String,
+    val tInfo:String,
     @SerializedName("inicio ")
     val inicio :String,
     @SerializedName("activa ")
