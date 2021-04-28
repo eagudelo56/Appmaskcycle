@@ -11,11 +11,11 @@ data class DataUsoMasc (
     val tipo:String,
     @SerializedName("t_info")
     val tInfo:String,
-    @SerializedName("inicio ")
+    @SerializedName("inicio")
     val inicio :String,
-    @SerializedName("activa ")
+    @SerializedName("activa")
     val activa :Boolean,
-    @SerializedName("horas_vida  ")
+    @SerializedName("horas_vida")
     val horasVida:String,
     @SerializedName("final")
     val final:String,
