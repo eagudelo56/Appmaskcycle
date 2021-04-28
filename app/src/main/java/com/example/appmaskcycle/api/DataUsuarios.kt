@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class DataUsuarios (
 
-    @SerializedName("ID")
+    @SerializedName("id")
     val id:Int,
-    @SerializedName("NOMBRE")
+    @SerializedName("nombre")
     val nombre:String,
-    @SerializedName("CONTRASENA")
+    @SerializedName("contrasena")
     val contrasena:String
 
 

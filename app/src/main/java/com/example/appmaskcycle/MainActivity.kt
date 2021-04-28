@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //Toast.makeText(this,"eeee",Toast.LENGTH_LONG).show()
+        //Toast.makeText(this,"Login funciona",Toast.LENGTH_LONG).show()
         bnLogin.setOnClickListener {
             comprobarFormulario()
         }
