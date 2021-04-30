@@ -3,8 +3,7 @@ package com.example.appmaskcycle.clases
 
 import com.example.appmaskcycle.api.Conexion
 import com.example.appmaskcycle.api.DataDispMasc
-import com.example.appmaskcycle.api.DataUsuarios
-import retrofit2.Call
+
 
 class DispMasc(var id:Int, var nombre:String,var tipo:Int,
                var tInfo:String,var lavados:Int,
