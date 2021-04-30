@@ -4,7 +4,7 @@ import com.example.appmaskcycle.api.Conexion
 import com.example.appmaskcycle.api.DataUsuarios
 import retrofit2.Call
 
-class Usuarios(val id:Int,val nombre:String,val contrasena:String) : InterfaceUsuarios {
+class Usuarios(var id:Int,var nombre:String,var contrasena:String) : InterfaceUsuarios {
 
     private val c = Conexion()
 
