@@ -26,11 +26,11 @@ class DispMasc(val id:Int,val nombre:String,val tipo:Int,
         }
     }
 
-    override fun getDispMascPorNombre(nombre: String): Call<List<DataDispMasc>> {
+    /*override fun getDispMascPorNombre(nombre: String): Call<List<DataDispMasc>> {
         TODO("Not yet implemented")
     }
 
     override fun getDispoMascPorId (id:Int): Call<List<DataDispMasc>> {
         TODO("Not yet implemented")
-    }
+    }*/
 }
