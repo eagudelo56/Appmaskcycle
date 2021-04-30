@@ -6,9 +6,9 @@ import com.example.appmaskcycle.api.DataDispMasc
 import com.example.appmaskcycle.api.DataUsuarios
 import retrofit2.Call
 
-class DispMasc(val id:Int,val nombre:String,val tipo:Int,
-               val tInfo:String,val lavados:Int,
-               val duracion:Int,val stock :Int,val comentario:String) : InterfaceDispMasc {
+class DispMasc(var id:Int, var nombre:String,var tipo:Int,
+               var tInfo:String,var lavados:Int,
+               var duracion:Int,var stock :Int,var comentario:String) : InterfaceDispMasc {
 
     private val c = Conexion()
 
