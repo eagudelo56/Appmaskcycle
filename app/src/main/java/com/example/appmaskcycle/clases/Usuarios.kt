@@ -9,6 +9,8 @@ class Usuarios(var id:Int,var nombre:String,var contrasena:String) : InterfaceUs
     private val c = Conexion()
 
     companion object{
+        var idActual : Int? = null
+
         fun convertir (lista:List<DataUsuarios>):ArrayList<Usuarios> {
 
             val arrayL:ArrayList<Usuarios> = ArrayList<Usuarios>()

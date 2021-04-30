@@ -30,7 +30,11 @@ class TiposMasc (
     }
 
     override fun getAllTiposMasc(): Call<List<DataTiposMasc>> {
-        /*return  c.executeQueryUsuario("select * from tipos_masc")*/
+        /*
+        val sql = "select id,nombre_t 'nombre',tipo,lavados,duracion,stock,comentarios "+
+            "from tipos_masc"
+
+        return  c.executeQueryUsuario(sql)*/
         TODO("Not yet implemented")
     }
 }

@@ -4,13 +4,12 @@ import com.google.gson.annotations.SerializedName
 
 
 data class DataDispMasc (
-
     @SerializedName("id")
     val id:Int,
     @SerializedName("nombre")
     val nombre:String,
     @SerializedName("tipo")
-    val tipo:Int,
+    val tipo:String,
     @SerializedName("t_info")
     val tInfo:String,
     @SerializedName("lavados")
@@ -21,8 +20,5 @@ data class DataDispMasc (
     val stock :Int,
     @SerializedName("comentario")
     val comentario:String
-
-
-
 )
 

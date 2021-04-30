@@ -51,15 +51,14 @@ class MainActivity : AppCompatActivity() {
                         call: Call<List<DataUsuarios>>,
                         response: Response<List<DataUsuarios>>
                     ) {
-
-                        //val aux = response.errorBody()
-                        //Log.e("tag",aux.toString())
-
                         val respuesta = response.body()
                         if(respuesta!=null) {
                             val array = Usuarios.convertir(respuesta)
                             if(array.size==1) {
                                 if (contrasena == array[0].contrasena) {
+                                    /*guarda la id del usuario que se ha loggeado*/
+                                    Usuarios.idActual=array[0].id
+                                    /*lanzar siguiente activity*/
                                     val intent = Intent(cont, HomeActivity::class.java)
                                     startActivity(intent)
                                 }else{
@@ -69,9 +68,6 @@ class MainActivity : AppCompatActivity() {
                                 Toast.makeText(cont,"Usuario Incorrecto",Toast.LENGTH_LONG).show()
                             }
                         }
-                        //Toast.makeText(cont,array[0].nombre,Toast.LENGTH_LONG).show()
-                        //Toast.makeText(cont,rel[0].hello(),Toast.LENGTH_LONG).show()
-
                     }
                 }
             )

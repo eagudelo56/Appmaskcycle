@@ -4,7 +4,8 @@ class FactoriaDispMasc {
 
     companion object{
         fun getDispMascDao() : DispMasc{
-            return DispMasc (-1,"",-1,"",0,0,0,"")
+            return DispMasc (-1,"","","",
+                0,0,0,"")
         }
     }
 

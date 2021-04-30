@@ -3,9 +3,10 @@ package com.example.appmaskcycle.clases
 
 import com.example.appmaskcycle.api.Conexion
 import com.example.appmaskcycle.api.DataDispMasc
+import retrofit2.Call
 
 
-class DispMasc(var id:Int, var nombre:String,var tipo:Int,
+class DispMasc(var id:Int, var nombre:String,var tipo:String,
                var tInfo:String,var lavados:Int,
                var duracion:Int,var stock :Int,var comentario:String) : InterfaceDispMasc {
 
@@ -19,16 +20,24 @@ class DispMasc(var id:Int, var nombre:String,var tipo:Int,
                     lista[i].tInfo, lista[i].lavados, lista[i].duracion,
                     lista[i].stock, lista[i].comentario
                 )
+                arrayL.add(aux)
             }
 
             return arrayL
         }
     }
 
-    /*override fun getDispMascPorNombre(nombre: String): Call<List<DataDispMasc>> {
-        TODO("Not yet implemented")
+    override fun getAllDispMasc(): Call<List<DataDispMasc>> {
+        val sql = "select d.id,d.nombre,t.nombre_t 'tipo',t.info_extra 't_info'," +
+        "d.lavados,d.duracion,d.stock,d.comentario " +
+        "from disp_masc d " +
+        "join (tipos_masc t) " +
+        "on (d.id = t.id) " +
+        "where d.id_usuario=1;"
+        return  c.executeQueryDispMasc(sql)
     }
 
+    /*
     override fun getDispoMascPorId (id:Int): Call<List<DataDispMasc>> {
         TODO("Not yet implemented")
     }*/
