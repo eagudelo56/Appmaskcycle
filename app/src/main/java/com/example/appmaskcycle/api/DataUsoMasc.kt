@@ -14,7 +14,7 @@ data class DataUsoMasc (
     @SerializedName("inicio")
     val inicio :String,
     @SerializedName("activa")
-    val activa :Boolean,
+    val activa :String,
     @SerializedName("horas_vida")
     val horasVida:String,
     @SerializedName("final")
