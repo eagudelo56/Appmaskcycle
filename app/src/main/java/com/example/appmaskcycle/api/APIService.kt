@@ -14,9 +14,28 @@ interface APIService {
         @Field("sql") sql:String,
         @Field("key") apiKey:String): Call<List<DataUsuarios>>
 
+    @Headers("Accept: text/html")
+    @POST("executeQuery.php")
+    @FormUrlEncoded
+    fun executeQueryApiDispMasc (
+        @Field("sql") sql:String,
+        @Field("key") apiKey:String): Call<List<DataDispMasc>>
 
+    @Headers("Accept: text/html")
+    @POST("executeQuery.php")
+    @FormUrlEncoded
+    fun executeQueryApiUsoMasc (
+        @Field("sql") sql:String,
+        @Field("key") apiKey:String): Call<List<DataUsoMasc>>
 
+    @Headers("Accept: text/html")
+    @POST("executeQuery.php")
+    @FormUrlEncoded
+    fun executeQueryApiTiposMasc (
+        @Field("sql") sql:String,
+        @Field("key") apiKey:String): Call<List<DataTiposMasc>>
 
-    /*hhhhh*/
 }
+
+
 
