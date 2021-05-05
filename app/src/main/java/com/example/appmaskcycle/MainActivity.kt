@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         var cont= this
 
         doAsync {
-            val llamada= c.execute("insert into disp_masc (nombre,tipo,lavados,duracion,stock,comentario, id_usuario) values ('hospital',2,0 ,8,30,'para el hospital',1)")
+            val llamada= c.execute("insert into disp_masc (nombre,tipo,lavados,duracion,stock,comentario, id_usuario) values ('deporte',2,0 ,8,30,'para hacer deporte',1)")
             llamada.enqueue(
                 object: Callback<DataCodigoError>{
                     override fun onFailure(call: Call<DataCodigoError>, t: Throwable) {
