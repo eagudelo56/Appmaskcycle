@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.appmaskcycle.api.Conexion
+import com.example.appmaskcycle.api.DataCodigoError
 import com.example.appmaskcycle.api.DataUsuarios
 import com.example.appmaskcycle.clases.FactoriaUsuarios
 import com.example.appmaskcycle.clases.Usuarios
@@ -18,10 +20,49 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val c = Conexion()
+
         //Toast.makeText(this,"Login funciona",Toast.LENGTH_LONG).show()
         bnLogin.setOnClickListener {
             comprobarFormulario()
         }
+
+        var cont= this
+
+        doAsync {
+            val llamada= c.execute("insert into disp_masc (nombre,tipo,lavados,duracion,stock,comentario, id_usuario) values ('hospital',2,0 ,8,30,'para el hospital',1)")
+            llamada.enqueue(
+                object: Callback<DataCodigoError>{
+                    override fun onFailure(call: Call<DataCodigoError>, t: Throwable) {
+                        Toast.makeText(cont,"no conexion",Toast.LENGTH_LONG).show()
+                    }
+
+                    override fun onResponse(
+                        call: Call<DataCodigoError>,
+                        response: Response<DataCodigoError>
+                    ) {
+                        val respuesta = response.body()
+                        if(respuesta!=null){
+                            if(respuesta.codigoError==1){
+                                Toast.makeText(cont,"Bien "+ respuesta.codigoError,Toast.LENGTH_LONG).show()
+                            }
+                            else if(respuesta.codigoError==0){
+                                Toast.makeText(cont,"Mal "+respuesta.codigoError,Toast.LENGTH_LONG).show()
+                            }
+                            else{
+                                Toast.makeText(cont,"ni 0 ni 1",Toast.LENGTH_LONG).show()
+                            }
+                        }
+                        else{
+                            Toast.makeText(cont,"Servidor ha fallado",Toast.LENGTH_LONG).show()
+                        }
+                    }
+
+                }
+            )
+        }
+
+
 
     }
 

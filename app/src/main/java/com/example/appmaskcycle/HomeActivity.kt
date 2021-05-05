@@ -21,6 +21,8 @@ class HomeActivity : AppCompatActivity() {
         rvHome.layoutManager = LinearLayoutManager(this)
 
         recuperarDisponibles()
+
+
     }
 
     private fun actualizarRV(array:ArrayList<DispMasc>){

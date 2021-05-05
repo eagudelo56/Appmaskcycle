@@ -35,6 +35,13 @@ interface APIService {
         @Field("sql") sql:String,
         @Field("key") apiKey:String): Call<List<DataTiposMasc>>
 
+    @Headers("Accept: text/html")
+    @POST("execute.php")
+    @FormUrlEncoded
+    fun executeApi (
+        @Field("sql") sql:String,
+        @Field("key") apiKey:String): Call<DataCodigoError>
+
 }
 
 

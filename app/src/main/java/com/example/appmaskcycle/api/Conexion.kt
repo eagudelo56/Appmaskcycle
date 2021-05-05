@@ -50,5 +50,12 @@ class Conexion {
         return aux
     }
 
+    fun execute(sql: String): Call<DataCodigoError>
+    {
+        val aux = getRetrofit().create(APIService::class.java).executeApi(sql, apiKey)
+        /* llamar al metodo interface le pasamos el sql y api */
+        return aux
+    }
+
 
 }
