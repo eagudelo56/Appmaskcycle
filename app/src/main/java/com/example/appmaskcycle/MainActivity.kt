@@ -4,8 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.example.appmaskcycle.api.Conexion
-import com.example.appmaskcycle.api.DataCodigoError
 import com.example.appmaskcycle.api.DataUsuarios
 import com.example.appmaskcycle.clases.FactoriaUsuarios
 import com.example.appmaskcycle.clases.Usuarios
@@ -20,15 +18,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val c = Conexion()
+
 
         //Toast.makeText(this,"Login funciona",Toast.LENGTH_LONG).show()
         bnLogin.setOnClickListener {
             comprobarFormulario()
         }
 
+        /*
+        val c = Conexion()
         var cont= this
-
         doAsync {
             val llamada= c.execute("insert into disp_masc (nombre,tipo,lavados,duracion,stock,comentario, id_usuario) values ('deporte',2,0 ,8,30,'para hacer deporte',1)")
             llamada.enqueue(
@@ -61,9 +60,7 @@ class MainActivity : AppCompatActivity() {
                 }
             )
         }
-
-
-
+        */
     }
 
 
