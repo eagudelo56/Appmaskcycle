@@ -2,6 +2,7 @@ package com.example.appmaskcycle.clases
 
 
 import com.example.appmaskcycle.api.Conexion
+import com.example.appmaskcycle.api.DataCodigoError
 import com.example.appmaskcycle.api.DataDispMasc
 import retrofit2.Call
 
@@ -37,8 +38,29 @@ class DispMasc(var id:Int, var nombre:String,var tipo:String,
         return  c.executeQueryDispMasc(sql)
     }
 
+    override fun insertarDispMasc(
+        nombre: String,
+        tipo: Int,
+        lavados: Int,
+        duracion: Int,
+        stock: Int,
+        comentario: String,
+        idUsuarios: Int
+    ): Call<DataCodigoError> {
+
+        var sql = "insert into disp_masc (nombre,tipo,lavados,duracion,stock,comentario, id_usuario) " +
+                "values ('$nombre',$tipo,$lavados,$duracion,$stock,'$comentario',$idUsuarios)"
+        return c.execute(sql)
+
+    }
+
+
     /*
     override fun getDispoMascPorId (id:Int): Call<List<DataDispMasc>> {
         TODO("Not yet implemented")
     }*/
+
+
+
+
 }

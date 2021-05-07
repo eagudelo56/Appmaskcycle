@@ -20,9 +20,6 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
         rvHome.layoutManager = LinearLayoutManager(this)
 
-        recuperarDisponibles()
-
-
     }
 
     private fun actualizarRV(array:ArrayList<DispMasc>){
@@ -55,5 +52,10 @@ class HomeActivity : AppCompatActivity() {
                 })
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        recuperarDisponibles()
     }
 }
