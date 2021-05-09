@@ -6,7 +6,7 @@ import retrofit2.Call
 
 interface InterfaceDispMasc {
 
-    fun getAllDispMasc () : Call<List<DataDispMasc>>
+    fun getDispMascByUsuario(usr:Int) : Call<List<DataDispMasc>>
     /*
     fun getDispMascPorId (id:Int): Call<List<DataDispMasc>>*/
     fun insertarDispMasc(nombre:String,tipo:Int,lavados:Int,duracion:Int,stock:Int,comentario:String,idUsuarios:Int): Call<DataCodigoError>

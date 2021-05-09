@@ -21,41 +21,42 @@ class AnadirDispActivity : AppCompatActivity() {
         setContentView(R.layout.activity_anadir_disp)
 
 
+        btnAnadir.setOnClickListener{
+            validarFormulario()
+        }
+
         val listaMascarillas = arrayOf("Quirugíca",
             "FFp2", "Higiénicas","Personalizadas","Reutilizables")
-
 
         val adaptadorSpin = ArrayAdapter<String>(this,
             android.R.layout.simple_spinner_item, listaMascarillas)
         spTipos.adapter = adaptadorSpin
     }
 
-    fun validarFormulario () {
-        var relleno:Boolean= true
+    private fun validarFormulario () {
+        var relleno = true
+        val usuario = Usuarios.idActual
         val arrayEt = arrayOf(etNombre,etStock,etDuracion)
         for ( i in arrayEt) {
-            if(!i.text.toString().isNotEmpty()){
+            if(i.text.toString().isEmpty()){
                 relleno=false
             }
         }
-
-        if(relleno==true){
-            insertarBD(etNombre.text.toString(),1,8,8,etStock.text.toString().toInt())
+        if(relleno && usuario!=null){
+            insertarBD(etNombre.text.toString(),1,8,8,
+                etStock.text.toString().toInt(),usuario)
         }
-
     }
 
 
 
-    fun insertarBD (nombre:String,tipo:Int,lavados:Int,duracion:Int,stock:Int) {
-        var usuario = Usuarios.idActual
+    private fun insertarBD (nombre:String, tipo:Int, lavados:Int, duracion:Int, stock:Int, usuario:Int) {
         val cont=this
-        if(usuario!=null){
             doAsync {
                 val objetoDao = FactoriaDispMasc.getDispMascDao()
-                val llamada = objetoDao.insertarDispMasc(nombre,tipo,lavados,duracion,stock,"",
-                    usuario)
-
+                val llamada =
+                    objetoDao.insertarDispMasc(nombre,tipo,lavados,duracion
+                        ,stock,"", usuario)
                 llamada.enqueue(
                     object : Callback<DataCodigoError> {
                         override fun onFailure(call: Call<DataCodigoError>, t: Throwable) {
@@ -88,10 +89,7 @@ class AnadirDispActivity : AppCompatActivity() {
                     }
                 )
             }
-        }
-
     }
-
 
 
 }
