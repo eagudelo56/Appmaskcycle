@@ -13,7 +13,7 @@ class Usuarios(var id:Int,var nombre:String,var contrasena:String) : InterfaceUs
 
         fun convertir (lista:List<DataUsuarios>):ArrayList<Usuarios> {
 
-            val arrayL:ArrayList<Usuarios> = ArrayList<Usuarios>()
+            val arrayL:ArrayList<Usuarios> = ArrayList()
             for (i in lista.indices){
                 val aux = Usuarios (lista[i].id, lista[i].nombre, lista[i].contrasena)
                 arrayL.add(aux)

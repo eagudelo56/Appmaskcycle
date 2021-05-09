@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Appmaskcycle</string>
+    <string name="titulo_home">Home</string>
+    <string name="titulo_anadir_disp">Añadir mascarilla</string>
 </resources>

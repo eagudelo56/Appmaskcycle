@@ -24,43 +24,6 @@ class MainActivity : AppCompatActivity() {
         bnLogin.setOnClickListener {
             comprobarFormulario()
         }
-
-        /*
-        val c = Conexion()
-        var cont= this
-        doAsync {
-            val llamada= c.execute("insert into disp_masc (nombre,tipo,lavados,duracion,stock,comentario, id_usuario) values ('deporte',2,0 ,8,30,'para hacer deporte',1)")
-            llamada.enqueue(
-                object: Callback<DataCodigoError>{
-                    override fun onFailure(call: Call<DataCodigoError>, t: Throwable) {
-                        Toast.makeText(cont,"no conexion",Toast.LENGTH_LONG).show()
-                    }
-
-                    override fun onResponse(
-                        call: Call<DataCodigoError>,
-                        response: Response<DataCodigoError>
-                    ) {
-                        val respuesta = response.body()
-                        if(respuesta!=null){
-                            if(respuesta.codigoError==1){
-                                Toast.makeText(cont,"Bien "+ respuesta.codigoError,Toast.LENGTH_LONG).show()
-                            }
-                            else if(respuesta.codigoError==0){
-                                Toast.makeText(cont,"Mal "+respuesta.codigoError,Toast.LENGTH_LONG).show()
-                            }
-                            else{
-                                Toast.makeText(cont,"ni 0 ni 1",Toast.LENGTH_LONG).show()
-                            }
-                        }
-                        else{
-                            Toast.makeText(cont,"Servidor ha fallado",Toast.LENGTH_LONG).show()
-                        }
-                    }
-
-                }
-            )
-        }
-        */
     }
 
 

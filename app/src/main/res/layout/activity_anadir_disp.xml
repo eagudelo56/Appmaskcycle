@@ -47,37 +47,84 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTipos" />
 
-    <TextView
-        android:id="@+id/tvLavados"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="39dp"
-        android:text="Lavados:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spTipos" />
 
     <TextView
-        android:id="@+id/tvDuracion"
+        android:id="@+id/tvComent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginLeft="70dp"
         android:layout_marginTop="39dp"
-        android:text="Duracion:"
+        android:text="Comentario"
+        app:layout_constraintStart_toStartOf="@+id/tvTipos"
+        app:layout_constraintTop_toBottomOf="@+id/spTipos" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contenedor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="39dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLavados" />
+        app:layout_constraintTop_toBottomOf="@+id/tvComent">
+
+
+        <TextView
+            android:id="@+id/tvLavados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginLeft="70dp"
+            android:text="Lavados:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDuracion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="39dp"
+            android:text="Duracion:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLavados" />
+
+        <EditText
+            android:id="@+id/etLavados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:ems="10"
+            android:inputType="number"
+            android:maxLength="2"
+            app:layout_constraintStart_toEndOf="@+id/tvLavados"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/etDuracion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:maxLength="2"
+            android:inputType="number"
+            app:layout_constraintStart_toEndOf="@+id/tvDuracion"
+            app:layout_constraintTop_toBottomOf="@+id/etLavados" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/btnAnadir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="32dp"
         android:text="Añadir"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDuracion" />
+        app:layout_constraintTop_toBottomOf="@+id/contenedor" />
 
     <EditText
         android:id="@+id/etNombre"
@@ -87,6 +134,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="105dp"
         android:ems="10"
+        android:maxLength="15"
         android:inputType="textPersonName"
         app:layout_constraintStart_toEndOf="@+id/tvNombre"
         app:layout_constraintTop_toTopOf="parent" />
@@ -100,31 +148,22 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:inputType="number"
+        android:maxLength="2"
         app:layout_constraintStart_toEndOf="@+id/tvStock"
         app:layout_constraintTop_toBottomOf="@+id/etNombre" />
 
     <EditText
-        android:id="@+id/etLavados"
+        android:id="@+id/etComent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="37dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
-        android:inputType="number"
-        app:layout_constraintStart_toEndOf="@+id/tvLavados"
+        android:inputType="textPersonName"
+        android:maxLength="30"
+        app:layout_constraintStart_toEndOf="@+id/tvComent"
         app:layout_constraintTop_toBottomOf="@+id/spTipos" />
 
-    <EditText
-        android:id="@+id/etDuracion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintStart_toEndOf="@+id/tvDuracion"
-        app:layout_constraintTop_toBottomOf="@+id/etLavados" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

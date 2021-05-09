@@ -48,7 +48,7 @@ class DispMasc(var id:Int, var nombre:String,var tipo:String,
         idUsuarios: Int
     ): Call<DataCodigoError> {
 
-        var sql = "insert into disp_masc (nombre,tipo,lavados,duracion,stock,comentario, id_usuario) " +
+        val sql = "insert into disp_masc (nombre,tipo,lavados,duracion,stock,comentario, id_usuario) " +
                 "values ('$nombre',$tipo,$lavados,$duracion,$stock,'$comentario',$idUsuarios)"
         return c.execute(sql)
 

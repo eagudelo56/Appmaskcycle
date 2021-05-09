@@ -19,6 +19,11 @@ android {
         versionCode 1
         versionName "1.0"
 
+        /* para que se muesten los iconos svg*/
+        vectorDrawables {
+            useSupportLibrary = true
+        }
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -26,6 +31,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            /* para que se muesten los iconos svg*/
             android.defaultConfig.vectorDrawables.useSupportLibrary = true
         }
     }

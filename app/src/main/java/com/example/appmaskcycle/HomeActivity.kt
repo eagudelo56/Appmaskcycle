@@ -20,6 +20,13 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        /*
+        *
+        * title es un atrivuto de la actividad
+        * con getString se obtienen los textos del archivo strings
+        *
+        * */
+        title = getString(R.string.titulo_home)
 
         btnAddDisp.setOnClickListener{
             startActivity(Intent(this,AnadirDispActivity::class.java))

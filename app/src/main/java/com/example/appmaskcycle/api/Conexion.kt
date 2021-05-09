@@ -26,36 +26,28 @@ class Conexion {
     }
 
     fun executeQueryUsuario(sql:String) : Call<List<DataUsuarios>> {
-        val aux = getRetrofit().create(APIService::class.java).executeQueryApiUsuarios(sql,apiKey)
+        return getRetrofit().create(APIService::class.java).executeQueryApiUsuarios(sql,apiKey)
         /* llamar al metodo interface le pasamos el sql y api */
-        return aux
-
     }
 
     fun executeQueryDispMasc (sql: String): Call<List<DataDispMasc>>{
-        val aux = getRetrofit().create(APIService::class.java).executeQueryApiDispMasc(sql,apiKey)
+        return getRetrofit().create(APIService::class.java).executeQueryApiDispMasc(sql,apiKey)
         /* llamar al metodo interface le pasamos el sql y api */
-        return aux
     }
 
     fun executeQueryUsoMasc (sql: String): Call<List<DataUsoMasc>>{
-        val aux = getRetrofit().create(APIService::class.java).executeQueryApiUsoMasc(sql,apiKey)
+        return getRetrofit().create(APIService::class.java).executeQueryApiUsoMasc(sql,apiKey)
         /* llamar al metodo interface le pasamos el sql y api */
-        return aux
     }
 
     fun executeQueryTiposMasc (sql: String): Call<List<DataTiposMasc>>{
-        val aux = getRetrofit().create(APIService::class.java).executeQueryApiTiposMasc(sql,apiKey)
+        return getRetrofit().create(APIService::class.java).executeQueryApiTiposMasc(sql,apiKey)
         /* llamar al metodo interface le pasamos el sql y api */
-        return aux
     }
 
     fun execute(sql: String): Call<DataCodigoError>
     {
-        val aux = getRetrofit().create(APIService::class.java).executeApi(sql, apiKey)
+        return getRetrofit().create(APIService::class.java).executeApi(sql, apiKey)
         /* llamar al metodo interface le pasamos el sql y api */
-        return aux
     }
-
-
 }
