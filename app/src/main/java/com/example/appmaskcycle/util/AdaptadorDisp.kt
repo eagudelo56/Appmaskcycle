@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appmaskcycle.R
 import com.example.appmaskcycle.clases.DispMasc
@@ -15,8 +14,8 @@ class AdaptadorDisp(var content:Context, var array:ArrayList<DispMasc>): Recycle
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(mascarilla: DispMasc) {
             //guarda el objeto de la poscion actual
-            itemView.tvDispNombre.text = mascarilla.nombre
-            itemView.tvDispStock.text = mascarilla.stock.toString()
+            itemView.tvUsoNombre.text = mascarilla.nombre
+            itemView.tvUsoDuracion.text = mascarilla.stock.toString()
         }
     }
 
