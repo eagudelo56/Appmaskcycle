@@ -2,6 +2,7 @@ package com.example.appmaskcycle
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -22,6 +23,7 @@ class HomeActivity : AppCompatActivity() {
 
     private var pantalla = 0
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -41,10 +43,12 @@ class HomeActivity : AppCompatActivity() {
         rvHome.layoutManager = LinearLayoutManager(this)
 
         tvUso.setOnClickListener{
+            pantalla = 0
             cambiarPantalla()
         }
 
         tvDisp.setOnClickListener {
+            pantalla = 1
             cambiarPantalla()
         }
 
@@ -52,16 +56,18 @@ class HomeActivity : AppCompatActivity() {
     /* 0 == USO Y 1 == DISPONIBLES*/
     private fun cambiarPantalla (){
         val usr = Usuarios.idActual
-        if(usr!=null){ /* estamos en uso y cambiamos a la disponibles*/
+        if(usr!=null){ /* estamos en disponibles y cambiamos a la uso*/
             if(pantalla==0){
-                btnAddDisp.visibility = View.VISIBLE
-                recuperarDisponibles(usr)
-                pantalla=1
-            }
-            if(pantalla==1){ /*estamos en disponibles y cambiamos a en uso */
+                tvUso.setTextColor(Color.GREEN)
+                tvDisp.setTextColor(Color.GRAY)
                 btnAddDisp.visibility = View.INVISIBLE
                 recuperarEnUso(usr)
-                pantalla=0
+            }
+            if(pantalla==1){ /*estamos en uso y cambiamos a en disponibles */
+                tvUso.setTextColor(Color.GRAY)
+                tvDisp.setTextColor(Color.GREEN)
+                btnAddDisp.visibility = View.VISIBLE
+                recuperarDisponibles(usr)
             }
         }
     }
@@ -70,7 +76,7 @@ class HomeActivity : AppCompatActivity() {
         super.onResume()
         val usr = Usuarios.idActual
         if(usr!=null){
-            recuperarDisponibles(usr)
+            cambiarPantalla()
         }
 
     }
