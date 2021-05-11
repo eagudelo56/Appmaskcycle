@@ -15,7 +15,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="23">
-        <activity android:name=".AnadirDispActivity"></activity>
+        <activity android:name=".AjustesUsuarioActivity"></activity>
+        <activity android:name=".ManualActivity" />
+        <activity android:name=".RegistroUsuarioActivity" />
+        <activity android:name=".InfoMascActivity" />
+        <activity android:name=".AnadirDispActivity" />
         <activity android:name=".HomeActivity" /> <!-- android:usesCleartextTraffic = acceder a internet por http -->
         <activity android:name=".MainActivity">
             <intent-filter>

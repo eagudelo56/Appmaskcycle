@@ -2,4 +2,25 @@
     <string name="app_name">Appmaskcycle</string>
     <string name="titulo_home">Home</string>
     <string name="titulo_anadir_disp">Añadir mascarilla</string>
+    <string name="titulo_info_masc">Información mascarillas</string>
+
+    <string name="titulo_parrafo1">Mascarillas higiénicas</string>
+    <string name="cuerpo_parrafo1">Son una barrera para la transmisión de agentes infecciosos. Protegen desde dentro hacia afuera. Por lo tanto, si se acerca alguien que no lleva mascarilla y tiene Covid-19, la persona que sí lleva la mascarilla puede ser contagiada. Son, pues, mascarillas solidarias. Si todo el mundo las lleva, se evita la propagación del virus. Las hay reutilizables (UNE 0065-2020) y no reutilizables (UNE 0064-2020).</string>
+    <string name="tiempo_parrafo1">Tiempo: 4 horas.</string>
+
+    <string name="titulo_parrafo2">Mascarillas quirúrgicas</string>
+    <string name="cuerpo_parrafo2">Fueron diseñadas inicialmente para que, durante una operación quirúrgica, el médico no contaminará al enfermo y se protegiera de salpicaduras o sangre. Por tanto, son una protección de dentro hacia afuera (como las higiénicas), pero de fuera hacia adentro solo ofrecen una protección parcial, no total. Su precio máximo es de 0,96 euros. Lo normal es que no se usen más de 4 horas. No las hay reutilizables .</string>
+    <string name="tiempo_parrafo2">Tiempo: 4 horas.</string>
+
+    <string name="titulo_parrafo3">Mascarillas autofiltrantes (FFP2)</string>
+    <string name="cuerpo_parrafo3">Recomendadas para personal sanitario o personal que vaya a entrar en contacto estrecho con la respiración del paciente. Actúan de barrera de protección en ambos sentidos. Si lo indica con una “R” son reutilizables. Si pone “NR”, no lo son.</string>
+    <string name="tiempo_parrafo3">Tiempo: 8 horas.</string>
+
+    <string name="titulo_parrafo4">Mascarillas personalizadas</string>
+    <string name="cuerpo_parrafo4">No tienen la eficacia de protección exigida para obtener el certificado de protección bacteriana (superior al 90%) o de respirabilidad. Una opción alternativa es colocar un filtro renovable en el interior, con lo que la mascarilla se convierte en la funda que recubre el filtro homologado que sí actúa como barrera.</string>
+    <string name="tiempo_parrafo4">Tiempo: depende de la mascarilla.</string>
+
+    <string name="titulo_parrafo5">Mascarillas reutilizables</string>
+    <string name="cuerpo_parrafo5">Pueden emplearse diversos tipos de tejidos: poliéster/algodón, algodón 100% o poliamida. Para obtener el certificado de cumplimiento de la norma UNE 0065, deben tener una eficacia de protección bacteriana superior al 90% y una respirabilidad inferior a 60 Pa/cm2. Estas mascarillas se pueden lavar con detergente normal y agua a temperatura entre 60º y 90º (ciclo normal de lavadora). </string>
+    <string name="tiempo_parrafo5">Tiempo: depende de la mascarilla.</string>
 </resources>
