@@ -56,7 +56,7 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
                 "u.inicio,u.activa,u.horas_vida,u.final,u.lavados " +
                 "from uso_masc u " +
                 "join (disp_masc d, tipos_masc t) " +
-                "on (u.id_pack = d.id and d.id = t.id ) " +
+                "on (u.id_pack = d.id and d.tipo = t.id ) " +
                 "where d.id_usuario=$usr;"
 
          return c.executeQueryUsoMasc(sql)
@@ -67,7 +67,7 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
                 "u.inicio,u.activa,u.horas_vida,u.final,u.lavados " +
                 "from uso_masc u " +
                 "join (disp_masc d, tipos_masc t) " +
-                "on (u.id_pack = d.id and d.id = t.id ) " +
+                "on (u.id_pack = d.id and d.tipo = t.id ) " +
                 "where u.id=$id;"
         return c.executeQueryUsoMasc(sql)
     }
@@ -77,7 +77,7 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
                 "u.inicio,u.activa,u.horas_vida,u.final,u.lavados " +
                 "from uso_masc u " +
                 "join (disp_masc d, tipos_masc t) " +
-                "on (u.id_pack = d.id and d.id = t.id ) " +
+                "on (u.id_pack = d.id and d.tipo = t.id ) " +
                 "where u.id_pack=$idPack;"
         return c.executeQueryUsoMasc(sql)
     }

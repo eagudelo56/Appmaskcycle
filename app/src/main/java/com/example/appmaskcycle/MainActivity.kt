@@ -24,6 +24,17 @@ class MainActivity : AppCompatActivity() {
         btnRegis.setOnClickListener {
             comprobarFormulario()
         }
+
+        tvRegis.setOnClickListener{
+            startActivity(Intent(this,RegistroUsuarioActivity::class.java))
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        etUser.text.clear()
+        etContra.text.clear()
     }
 
 
