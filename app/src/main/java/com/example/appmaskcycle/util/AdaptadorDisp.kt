@@ -51,12 +51,12 @@ class AdaptadorDisp(var content:Context, var array:ArrayList<DispMasc>): Recycle
         private fun updateStock(cont : Context,mascarilla: DispMasc) {
             mascarilla.stock -=1
             if (mascarilla.stock > 0){
-                actualizarUso(cont, mascarilla)
+                actualizarDip(cont, mascarilla)
             }
             //eliminarUso(cont, mascarilla)
         }
 
-        private fun actualizarUso (cont : Context, mascarilla: DispMasc) {
+        private fun actualizarDip (cont : Context, mascarilla: DispMasc) {
             doAsync {
                 val llamada = mascarilla.updateDispMasc(mascarilla.id,
                     mascarilla.nombre, mascarilla.lavados,
