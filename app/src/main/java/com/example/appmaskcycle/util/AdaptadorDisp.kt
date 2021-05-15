@@ -10,6 +10,7 @@ import com.example.appmaskcycle.R
 import com.example.appmaskcycle.api.DataCodigoError
 import com.example.appmaskcycle.clases.DispMasc
 import com.example.appmaskcycle.clases.FactoriaUsoMasc
+import com.example.appmaskcycle.clases.Usuarios
 import kotlinx.android.synthetic.main.disp_masc.view.*
 import org.jetbrains.anko.doAsync
 import retrofit2.Call
@@ -41,16 +42,25 @@ class AdaptadorDisp(var content:Context, var array:ArrayList<DispMasc>): Recycle
                 val horasVida = ConvertirDb.getStringFromCalendar(auxHorasVida)
                 val final = ConvertirDb.getStringFromCalendar(auxFinal)
                 val lavados = mascarilla.lavados
-                insertarUsoDb(cont,idPack,inicio,activa,horasVida,final,lavados)
+                insertarUsoDb(cont,idPack,inicio,activa,horasVida,final,lavados,mascarilla)
             }
         }
 
-        private fun insertarUsoDb(cont : Context, idPack: Int, inicio: String, activa: String,
-                          horasVida: String, final: String, lavados: Int){
+        private fun updateStock(cont : Context,mascarilla: DispMasc) {
+            mascarilla.stock -=1
+            if (mascarilla.stock > 0){
+                actualizarUso(cont, mascarilla)
+            }else{
+                //eliminar
+            }
+
+        }
+
+        private fun actualizarUso (cont : Context, mascarilla: DispMasc) {
             doAsync {
-                val objDao = FactoriaUsoMasc.getUsoMascDao()
-                val llamada = objDao.insertarUsoMasc(idPack,
-                    inicio,activa,horasVida,final,lavados)
+                val llamada = mascarilla.updateDispMasc(mascarilla.nombre,
+                    mascarilla.lavados,mascarilla.duracion,mascarilla.stock,
+                    mascarilla.comentario)
                 llamada.enqueue(
                     object : Callback<DataCodigoError>{
                         override fun onFailure(call: Call<DataCodigoError>, t: Throwable) {
@@ -75,8 +85,42 @@ class AdaptadorDisp(var content:Context, var array:ArrayList<DispMasc>): Recycle
                     }
                 )
             }
+
+        }
+        private fun insertarUsoDb(cont : Context, idPack: Int, inicio: String, activa: String,
+                          horasVida: String, final: String, lavados: Int, mascarilla : DispMasc){
+            doAsync {
+                val objDao = FactoriaUsoMasc.getUsoMascDao()
+                val llamada = objDao.insertarUsoMasc(idPack,
+                    inicio,activa,horasVida,final,lavados)
+                llamada.enqueue(
+                    object : Callback<DataCodigoError>{
+                        override fun onFailure(call: Call<DataCodigoError>, t: Throwable) {
+                            Toast.makeText(cont,t.localizedMessage, Toast.LENGTH_LONG).show()
+                        }
+
+                        override fun onResponse(
+                            call: Call<DataCodigoError>,
+                            response: Response<DataCodigoError>
+                        ) {
+                            val respuesta = response.body()
+                            if(respuesta!=null){
+                                val codigo = respuesta.codigoError
+                                if(codigo == 1){
+                                    updateStock(cont,mascarilla)
+                                    Toast.makeText(cont,"bien", Toast.LENGTH_LONG).show()
+                                }else{
+                                    Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
+                                }
+                            }
+                        }
+
+                    }
+                )
+            }
         }
     }
+
 
     override fun getItemCount(): Int {
         return array.size
@@ -93,4 +137,6 @@ class AdaptadorDisp(var content:Context, var array:ArrayList<DispMasc>): Recycle
         val item = array[position]
         holder.bind(item, content)
     }
+
+
 }
