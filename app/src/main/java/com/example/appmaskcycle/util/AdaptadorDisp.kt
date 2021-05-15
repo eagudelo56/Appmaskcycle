@@ -10,14 +10,12 @@ import com.example.appmaskcycle.R
 import com.example.appmaskcycle.api.DataCodigoError
 import com.example.appmaskcycle.clases.DispMasc
 import com.example.appmaskcycle.clases.FactoriaUsoMasc
-import com.example.appmaskcycle.clases.Usuarios
 import kotlinx.android.synthetic.main.disp_masc.view.*
 import org.jetbrains.anko.doAsync
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AdaptadorDisp(var content:Context, var array:ArrayList<DispMasc>): RecyclerView.Adapter<AdaptadorDisp.ViewHolder>()
 {
@@ -50,10 +48,8 @@ class AdaptadorDisp(var content:Context, var array:ArrayList<DispMasc>): Recycle
             mascarilla.stock -=1
             if (mascarilla.stock > 0){
                 actualizarUso(cont, mascarilla)
-            }else{
-                //eliminar
             }
-
+            //eliminarUso(cont, mascarilla)
         }
 
         private fun actualizarUso (cont : Context, mascarilla: DispMasc) {
@@ -87,6 +83,37 @@ class AdaptadorDisp(var content:Context, var array:ArrayList<DispMasc>): Recycle
             }
 
         }
+
+        private fun eliminarUso (cont : Context, mascarilla: DispMasc) {
+            doAsync {
+                val llamada = mascarilla.deleteDispMasc(mascarilla.id)
+                llamada.enqueue(
+                    object : Callback<DataCodigoError>{
+                        override fun onFailure(call: Call<DataCodigoError>, t: Throwable) {
+                            Toast.makeText(cont,t.localizedMessage, Toast.LENGTH_LONG).show()
+                        }
+
+                        override fun onResponse(
+                            call: Call<DataCodigoError>,
+                            response: Response<DataCodigoError>
+                        ) {
+                            val respuesta = response.body()
+                            if(respuesta!=null){
+                                val codigo = respuesta.codigoError
+                                if(codigo == 1){
+                                    Toast.makeText(cont,"bien", Toast.LENGTH_LONG).show()
+                                }else{
+                                    Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
+                                }
+                            }
+                        }
+
+                    }
+                )
+            }
+
+        }
+
         private fun insertarUsoDb(cont : Context, idPack: Int, inicio: String, activa: String,
                           horasVida: String, final: String, lavados: Int, mascarilla : DispMasc){
             doAsync {
@@ -135,7 +162,9 @@ class AdaptadorDisp(var content:Context, var array:ArrayList<DispMasc>): Recycle
     //por cada fila encontrada en la bd, rellena la informacion del arrayList
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = array[position]
-        holder.bind(item, content)
+        if(item.stock>0){
+            holder.bind(item, content)
+        }
     }
 
 

@@ -1,4 +1,4 @@
-package com.example.appmaskcycle.util;
+package com.example.appmaskcycle.util
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.appmaskcycle.R
 import com.example.appmaskcycle.clases.UsoMasc
 import kotlinx.android.synthetic.main.uso_masc.view.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 class AdaptadorUso (var content:Context,var array:ArrayList<UsoMasc>): RecyclerView.Adapter<AdaptadorUso.ViewHolder>(){
 
@@ -18,7 +16,7 @@ class AdaptadorUso (var content:Context,var array:ArrayList<UsoMasc>): RecyclerV
             //guarda el objeto de la poscion actual
             itemView.tvUsoNombre.text = mascarilla.nombre
             itemView.tvUsoDuracion.text =
-                mascarilla.horasVida.get(Calendar.HOUR_OF_DAY).toString()
+                mascarilla.getHoraVformato()
         }
     }
 

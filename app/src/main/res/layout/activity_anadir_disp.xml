@@ -85,7 +85,7 @@
             android:layout_marginStart="70dp"
             android:layout_marginLeft="70dp"
             android:layout_marginTop="39dp"
-            android:text="Duracion:"
+            android:text="Duracion(h):"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvLavados" />
 

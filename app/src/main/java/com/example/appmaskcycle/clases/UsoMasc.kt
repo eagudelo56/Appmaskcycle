@@ -15,6 +15,20 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
 
     private val c = Conexion()
 
+    fun getHoraVformato() : String{
+        var horaAux = ""
+        var minAux = ""
+        val hora = horasVida.get(Calendar.HOUR_OF_DAY)
+        val min = horasVida.get(Calendar.MINUTE)
+        if(hora<10){
+            horaAux = "0"
+        }
+        if(min<10){
+            minAux = "0"
+        }
+        return "$horaAux$hora:$minAux$min"
+    }
+
     companion object{
         fun convertir (lista:List<DataUsoMasc>):ArrayList<UsoMasc> {
 
