@@ -17,6 +17,10 @@ class AdaptadorUso (var content:Context,var array:ArrayList<UsoMasc>): RecyclerV
             itemView.tvUsoNombre.text = mascarilla.nombre
             itemView.tvUsoDuracion.text =
                 mascarilla.getHoraVformato()
+
+            itemView.btnUsoAccion.setOnClickListener{
+
+            }
         }
     }
 

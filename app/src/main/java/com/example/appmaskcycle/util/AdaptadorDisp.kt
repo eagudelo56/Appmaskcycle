@@ -1,11 +1,15 @@
 package com.example.appmaskcycle.util
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.content.Intent.getIntent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.appmaskcycle.HomeActivity
 import com.example.appmaskcycle.R
 import com.example.appmaskcycle.api.DataCodigoError
 import com.example.appmaskcycle.clases.DispMasc
@@ -25,7 +29,7 @@ class AdaptadorDisp(var content:Context, var array:ArrayList<DispMasc>): Recycle
             itemView.tvUsoNombre.text = mascarilla.nombre
             itemView.tvUsoDuracion.text = mascarilla.stock.toString()
 
-            itemView.btnDispUsar.setOnClickListener{
+            itemView.btnUsoAccion.setOnClickListener{
                 val auxHorasVida = Calendar.getInstance()
                 auxHorasVida.set(Calendar.HOUR_OF_DAY, mascarilla.duracion)
                 auxHorasVida.set(Calendar.MINUTE,0)
@@ -72,6 +76,18 @@ class AdaptadorDisp(var content:Context, var array:ArrayList<DispMasc>): Recycle
                                 val codigo = respuesta.codigoError
                                 if(codigo == 1){
                                     Toast.makeText(cont,"bien", Toast.LENGTH_LONG).show()
+                                    /*
+                                    * se termina el home activity y se vuelve a lanzar
+                                    * para refrescar los datos
+                                    *
+                                    * overridePendingTransition es para que
+                                    * no se vea la animacion del cambio de activity
+                                    *
+                                    * */
+                                    (cont as Activity).finish()
+                                    cont .overridePendingTransition(0, 0)
+                                    cont.startActivity(Intent(cont,HomeActivity::class.java))
+                                    cont .overridePendingTransition(0, 0)
                                 }else{
                                     Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
                                 }

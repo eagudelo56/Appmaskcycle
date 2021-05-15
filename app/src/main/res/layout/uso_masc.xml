@@ -43,12 +43,12 @@
             android:layout_marginBottom="8dp"
             android:background="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnDispUsar"
+            app:layout_constraintEnd_toStartOf="@+id/btnUsoAccion"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_ver" />
 
         <ImageButton
-            android:id="@+id/btnDispUsar"
+            android:id="@+id/btnUsoAccion"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginEnd="32dp"
