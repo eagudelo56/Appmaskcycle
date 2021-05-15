@@ -15,7 +15,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="23">
-        <activity android:name=".AjustesUsuarioActivity"></activity>
+        <activity android:name=".DetallesUsoActivity"></activity>
+        <activity android:name=".DetallesDispActivity" />
+        <activity android:name=".AjustesUsuarioActivity" />
         <activity android:name=".ManualActivity" />
         <activity android:name=".RegistroUsuarioActivity" />
         <activity android:name=".InfoMascActivity" />

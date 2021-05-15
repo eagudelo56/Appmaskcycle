@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
 
         //Toast.makeText(this,"Login funciona",Toast.LENGTH_LONG).show()
-        bnLogin.setOnClickListener {
+        btnRegis.setOnClickListener {
             comprobarFormulario()
         }
     }
