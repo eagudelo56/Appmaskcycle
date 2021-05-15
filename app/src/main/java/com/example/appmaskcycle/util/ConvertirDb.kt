@@ -18,7 +18,8 @@ class ConvertirDb {
         }
 
         fun getStringFromCalendar(cal:Calendar):String{
-            return sdf.format(cal)
+            val aux = cal.time
+            return sdf.format(aux)
         }
 
         /*
