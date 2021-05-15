@@ -3,9 +3,15 @@ package com.example.appmaskcycle.clases
 import com.example.appmaskcycle.api.Conexion
 import com.example.appmaskcycle.api.DataCodigoError
 import com.example.appmaskcycle.api.DataUsoMasc
+import com.example.appmaskcycle.util.ConvertirDb
 import retrofit2.Call
+import java.util.*
+import kotlin.collections.ArrayList
 
-class UsoMasc(var id:Int, var nombre:String, var tipo:String, var tInfo:String, var inicio :String,var activa :String,var horasVida:String, var final:String,var lavados:Int) : InterfaceUsoMasc {
+class UsoMasc(var id:Int, var nombre:String, var tipo:String,
+              var tInfo:String, var inicio :Calendar,
+              var activa : Boolean ,var horasVida:Calendar,
+              var final:Calendar, var lavados:Int) : InterfaceUsoMasc {
 
     private val c = Conexion()
 
@@ -14,7 +20,14 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String, var tInfo:String, 
 
             val arrayL:ArrayList<UsoMasc> = ArrayList()
             for (i in lista.indices){
-                val aux = UsoMasc (lista[i].id, lista[i].nombre, lista[i].tipo, lista[i].tInfo, lista[i].inicio, lista[i].activa, lista[i].horasVida, lista[i].final, lista[i].lavados)
+                val actv = ConvertirDb.getBooleanFromString(lista[i].activa)
+                val inic = ConvertirDb.getCalendarFromString(lista[i].inicio)
+                val horasV = ConvertirDb.getCalendarFromString(lista[i].horasVida)
+                val fin = ConvertirDb.getCalendarFromString(lista[i].final)
+
+                val aux = UsoMasc (lista[i].id, lista[i].nombre, lista[i].tipo,
+                    lista[i].tInfo, inic, actv, horasV,
+                    fin, lista[i].lavados)
                 arrayL.add(aux)
             }
 
@@ -36,7 +49,6 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String, var tInfo:String, 
     }
 
     override fun insertarUsoMasc(
-        id: Int,
         idPack: Int,
         inicio: String,
         activa: String,
@@ -44,6 +56,10 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String, var tInfo:String, 
         final: String,
         lavados: Int
     ): Call<DataCodigoError> {
-        TODO("Not yet implemented")
+        val sql = "insert into uso_masc " +
+                "(id_pack,inicio,activa,horas_vida,final,lavados) " +
+                "VALUES ($idPack, '$inicio', '$activa', '$horasVida', " +
+                "'$final', $lavados); "
+        return c.execute(sql)
     }
 }
