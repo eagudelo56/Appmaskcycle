@@ -1,6 +1,7 @@
 package com.example.appmaskcycle.clases
 
 import com.example.appmaskcycle.api.Conexion
+import com.example.appmaskcycle.api.DataCodigoError
 import com.example.appmaskcycle.api.DataUsuarios
 import retrofit2.Call
 
@@ -31,8 +32,19 @@ class Usuarios(var id:Int,var nombre:String,var contrasena:String) : InterfaceUs
         return  c.executeQueryUsuario("select * from usuarios where id=$id")
     }
 
+    override fun insertarUsuario(nombre: String, contrasena: String): Call<DataCodigoError> {
+        val sql = "insert into usuarios " +
+                "(nombre, contrasena) " +
+                "VALUES ('$nombre', '$contrasena'); "
+        return c.execute(sql)
 
+    }
 
+    override fun updateUsuario(nombre: String, contrasena: String): Call<DataCodigoError> {
+        val sql = "update usuarios set nombre  = '$nombre' ," +
+                " contrasena = '$contrasena ; "
+        return c.execute(sql)
+    }
 
 
 }

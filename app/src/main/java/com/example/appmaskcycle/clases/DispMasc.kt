@@ -54,6 +54,20 @@ class DispMasc(var id:Int, var nombre:String,var tipo:String,
 
     }
 
+    override fun updateDispMasc(
+        nombre: String,
+        tipo: Int,
+        lavados: Int,
+        duracion: Int,
+        stock: Int,
+        comentario: String,
+        idUsuarios: Int
+    ): Call<DataCodigoError> {
+        val sql  = " update disp_masc set nombre = '$nombre' " +
+                "tipo =  $tipo , lavados = $lavados , duracion = $duracion , stock = $stock , "+
+                " comentario = '$comentario', id_usuario = $idUsuarios ; "
+        return  c.execute(sql)
+    }
 
     /*
     override fun getDispoMascPorId (id:Int): Call<List<DataDispMasc>> {

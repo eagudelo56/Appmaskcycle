@@ -62,4 +62,20 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
                 "'$final', $lavados); "
         return c.execute(sql)
     }
+
+    override fun updateUsoMasc(
+        idPack: Int,
+        inicio: String,
+        activa: String,
+        horasVida: String,
+        final: String,
+        lavados: Int
+    ): Call<DataCodigoError> {
+        val sql = "update uso_masc set id_pack  = $idPack ," +
+                " inicio = '$inicio', activa = '$activa', horas_vida = '$horasVida', " +
+                " final = '$final' , lavados = $lavados ; "
+        return c.execute(sql)
+    }
+
+
 }

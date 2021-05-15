@@ -10,6 +10,7 @@ interface InterfaceDispMasc {
     /*
     fun getDispMascPorId (id:Int): Call<List<DataDispMasc>>*/
     fun insertarDispMasc(nombre:String,tipo:Int,lavados:Int,duracion:Int,stock:Int,comentario:String,idUsuarios:Int): Call<DataCodigoError>
+    fun updateDispMasc(nombre:String,tipo:Int,lavados:Int,duracion:Int,stock:Int,comentario:String,idUsuarios:Int): Call<DataCodigoError>
 
 
 }

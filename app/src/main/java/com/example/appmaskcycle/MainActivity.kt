@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(cont," no funciona",Toast.LENGTH_LONG).show()
 
                     }
-
                     override fun onResponse( /*esta bien*/
                         call: Call<List<DataUsuarios>>,
                         response: Response<List<DataUsuarios>>
