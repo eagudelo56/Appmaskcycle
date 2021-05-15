@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.appmaskcycle.api.DataCodigoError
 import com.example.appmaskcycle.api.DataDispMasc
 import com.example.appmaskcycle.api.DataUsoMasc
 import com.example.appmaskcycle.clases.*
@@ -56,6 +57,7 @@ class HomeActivity : AppCompatActivity() {
     private fun cambiarPantalla (){
         val usr = Usuarios.idActual
         if(usr!=null){ /* estamos en disponibles y cambiamos a la uso*/
+            comprobarEliminarDisp(usr)
             if(pantalla==0){
                 tvUso.setTextColor(Color.GREEN)
                 tvDisp.setTextColor(Color.GRAY)
@@ -73,11 +75,8 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val usr = Usuarios.idActual
-        if(usr!=null){
-            cambiarPantalla()
-        }
 
+        cambiarPantalla()
     }
 
     private fun actualizarRVDisp(array:ArrayList<DispMasc>){
@@ -133,14 +132,103 @@ class HomeActivity : AppCompatActivity() {
                             actualizarRVUso(array)
                         }
                     }
-
                 }
             )
+        }
+    }
 
-
+    private fun comprobarEliminarDisp(usr:Int) {
+        /*
+        * se llama en cambiarPantalla
+        * se recuperan las disp y stock<=0 se comprueba
+        * que no haya mask en uso de ese pack (comprobarPackEnUso)
+        * si no hay ninguna en uso se elimina el pack
+        * */
+        val cont = this
+        doAsync {
+            val objDAO = FactoriaDispMasc.getDispMascDao()
+            val llamada = objDAO.getDispMascByUsuario(usr)
+            llamada.enqueue( /*con este meto EJECUTAMOS la llamada*/
+                object : Callback<List<DataDispMasc>>{
+                    override fun onFailure(call: Call<List<DataDispMasc>>, t: Throwable) {
+                        Toast.makeText(cont,t.localizedMessage, Toast.LENGTH_LONG).show()
+                    }
+                    override fun onResponse(
+                        call: Call<List<DataDispMasc>>,
+                        response: Response<List<DataDispMasc>>
+                    ) {
+                        val respuesta = response.body()
+                        if(respuesta!=null) {
+                            val array = DispMasc.convertir(respuesta)
+                            for(i in array){
+                                if(i.stock<=0){
+                                    comprobarPackEnUso(i.id)
+                                }
+                            }
+                        }
+                    }
+                })
         }
     }
 
 
+    private fun comprobarPackEnUso (id: Int) {
+        val cont = this
+        doAsync {
+            val objDao = FactoriaUsoMasc.getUsoMascDao()
+            val llamada = objDao.getUsoMascPorIdPack(id)
+            llamada.enqueue(
+                object : Callback<List<DataUsoMasc>>{
+                    override fun onFailure(call: Call<List<DataUsoMasc>>, t: Throwable) {
+                        Toast.makeText(cont,t.localizedMessage, Toast.LENGTH_LONG).show()
+                    }
 
+                    override fun onResponse(
+                        call: Call<List<DataUsoMasc>>,
+                        response: Response<List<DataUsoMasc>>
+                    ) {
+                        val lista = response.body()
+                        if(lista!=null){
+                            if(lista.isEmpty()){
+                                eliminarDisp(id)
+                            }
+                        }
+                    }
+
+
+                }
+            )
+        }
+    }
+
+    private fun eliminarDisp(id: Int) {
+        val cont = this
+        doAsync {
+            val objDao = FactoriaDispMasc.getDispMascDao()
+            val llamada = objDao.deleteDispMasc(id)
+            llamada.enqueue(
+                object : Callback<DataCodigoError>{
+                    override fun onFailure(call: Call<DataCodigoError>, t: Throwable) {
+                        Toast.makeText(cont,t.localizedMessage, Toast.LENGTH_LONG).show()
+                    }
+
+                    override fun onResponse(
+                        call: Call<DataCodigoError>,
+                        response: Response<DataCodigoError>
+                    ) {
+                        val respuesta = response.body()
+                        if(respuesta!=null){
+                            val codigo = respuesta.codigoError
+                            if(codigo == 1){
+                                Toast.makeText(cont,"bien", Toast.LENGTH_LONG).show()
+                            }else{
+                                Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    }
+
+                }
+            )
+        }
+    }
 }

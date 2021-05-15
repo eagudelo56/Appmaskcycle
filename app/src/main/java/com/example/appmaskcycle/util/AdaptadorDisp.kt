@@ -11,16 +11,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.appmaskcycle.HomeActivity
 import com.example.appmaskcycle.R
 import com.example.appmaskcycle.api.DataCodigoError
+import com.example.appmaskcycle.api.DataUsoMasc
 import com.example.appmaskcycle.clases.DispMasc
+import com.example.appmaskcycle.clases.FactoriaDispMasc
 import com.example.appmaskcycle.clases.FactoriaUsoMasc
 import kotlinx.android.synthetic.main.disp_masc.view.*
 import org.jetbrains.anko.doAsync
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
+import java.util.Calendar
 
-class AdaptadorDisp(var content:Context, var array:ArrayList<DispMasc>): RecyclerView.Adapter<AdaptadorDisp.ViewHolder>()
+class AdaptadorDisp(private var content:Context, private var array:ArrayList<DispMasc>): RecyclerView.Adapter<AdaptadorDisp.ViewHolder>()
 {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(mascarilla: DispMasc, cont : Context) {
@@ -29,30 +31,40 @@ class AdaptadorDisp(var content:Context, var array:ArrayList<DispMasc>): Recycle
             itemView.tvUsoDuracion.text = mascarilla.stock.toString()
 
             itemView.btnUsoAccion.setOnClickListener{
-                val auxHorasVida = Calendar.getInstance()
-                auxHorasVida.set(Calendar.HOUR_OF_DAY, mascarilla.duracion)
-                auxHorasVida.set(Calendar.MINUTE,0)
-                auxHorasVida.set(Calendar.SECOND,0)
+                if (mascarilla.stock > 0) {
+                    val auxHorasVida = Calendar.getInstance()
+                    auxHorasVida.set(Calendar.HOUR_OF_DAY, mascarilla.duracion)
+                    auxHorasVida.set(Calendar.MINUTE, 0)
+                    auxHorasVida.set(Calendar.SECOND, 0)
 
-                val auxFinal = Calendar.getInstance()
-                auxFinal.add(Calendar.HOUR_OF_DAY, mascarilla.duracion)
+                    val auxFinal = Calendar.getInstance()
+                    auxFinal.add(Calendar.HOUR_OF_DAY, mascarilla.duracion)
 
-                val idPack = mascarilla.id
-                val inicio = ConvertirDb.getStringFromCalendar(Calendar.getInstance())
-                val activa = ConvertirDb.getStringFromBoolean(true)
-                val horasVida = ConvertirDb.getStringFromCalendar(auxHorasVida)
-                val final = ConvertirDb.getStringFromCalendar(auxFinal)
-                val lavados = mascarilla.lavados
-                insertarUsoDb(cont,idPack,inicio,activa,horasVida,final,lavados,mascarilla)
+                    val idPack = mascarilla.id
+                    val inicio = ConvertirDb.getStringFromCalendar(Calendar.getInstance())
+                    val activa = ConvertirDb.getStringFromBoolean(true)
+                    val horasVida = ConvertirDb.getStringFromCalendar(auxHorasVida)
+                    val final = ConvertirDb.getStringFromCalendar(auxFinal)
+                    val lavados = mascarilla.lavados
+                    insertarUsoDb(
+                        cont,
+                        idPack,
+                        inicio,
+                        activa,
+                        horasVida,
+                        final,
+                        lavados,
+                        mascarilla
+                    )
+                }
             }
         }
 
         private fun updateStock(cont : Context,mascarilla: DispMasc) {
-            mascarilla.stock -=1
             if (mascarilla.stock > 0){
+                mascarilla.stock -=1
                 actualizarDip(cont, mascarilla)
             }
-            //eliminarUso(cont, mascarilla)
         }
 
         private fun actualizarDip (cont : Context, mascarilla: DispMasc) {
@@ -99,35 +111,6 @@ class AdaptadorDisp(var content:Context, var array:ArrayList<DispMasc>): Recycle
 
         }
 
-        private fun eliminarUso (cont : Context, mascarilla: DispMasc) {
-            doAsync {
-                val llamada = mascarilla.deleteDispMasc(mascarilla.id)
-                llamada.enqueue(
-                    object : Callback<DataCodigoError>{
-                        override fun onFailure(call: Call<DataCodigoError>, t: Throwable) {
-                            Toast.makeText(cont,t.localizedMessage, Toast.LENGTH_LONG).show()
-                        }
-
-                        override fun onResponse(
-                            call: Call<DataCodigoError>,
-                            response: Response<DataCodigoError>
-                        ) {
-                            val respuesta = response.body()
-                            if(respuesta!=null){
-                                val codigo = respuesta.codigoError
-                                if(codigo == 1){
-                                    Toast.makeText(cont,"bien", Toast.LENGTH_LONG).show()
-                                }else{
-                                    Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
-                                }
-                            }
-                        }
-
-                    }
-                )
-            }
-
-        }
 
         private fun insertarUsoDb(cont : Context, idPack: Int, inicio: String, activa: String,
                           horasVida: String, final: String, lavados: Int, mascarilla : DispMasc){
@@ -177,9 +160,7 @@ class AdaptadorDisp(var content:Context, var array:ArrayList<DispMasc>): Recycle
     //por cada fila encontrada en la bd, rellena la informacion del arrayList
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = array[position]
-        if(item.stock>0){
-            holder.bind(item, content)
-        }
+        holder.bind(item, content)
     }
 
 

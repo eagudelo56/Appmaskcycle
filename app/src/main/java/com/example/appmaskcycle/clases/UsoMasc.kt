@@ -68,7 +68,7 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
                 "from uso_masc u " +
                 "join (disp_masc d, tipos_masc t) " +
                 "on (u.id_pack = d.id and d.id = t.id ) " +
-                "where d.id=$id;"
+                "where u.id=$id;"
         return c.executeQueryUsoMasc(sql)
     }
 
@@ -78,7 +78,7 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
                 "from uso_masc u " +
                 "join (disp_masc d, tipos_masc t) " +
                 "on (u.id_pack = d.id and d.id = t.id ) " +
-                "where d.id_pack=$idPack;"
+                "where u.id_pack=$idPack;"
         return c.executeQueryUsoMasc(sql)
     }
 

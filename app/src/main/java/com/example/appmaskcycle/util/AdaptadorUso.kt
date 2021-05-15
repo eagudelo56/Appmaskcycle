@@ -42,14 +42,14 @@ class AdaptadorUso (var content:Context,var array:ArrayList<UsoMasc>): RecyclerV
             }
         }
 
-        private fun actualizarUso (cont : Context, inicio: String,
+        private fun actualizarUso (cont : Context, id:Int, inicio: String,
                                    activa: String,
                                    horasVida: String,
                                    final: String,
                                    lavados: Int) {
             doAsync {
                 val objDao = FactoriaUsoMasc.getUsoMascDao()
-                val llamada = objDao.updateUsoMasc(inicio,
+                val llamada = objDao.updateUsoMasc(id, inicio,
                     activa, horasVida,
                     final, lavados)
                 llamada.enqueue(
