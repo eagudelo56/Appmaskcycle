@@ -46,5 +46,10 @@ class Usuarios(var id:Int,var nombre:String,var contrasena:String) : InterfaceUs
         return c.execute(sql)
     }
 
+    override fun deleteUsuario(id: Int): Call<DataCodigoError> {
+        val sql  = "delete from usuarios where id = $id;"
+        return  c.execute(sql)
+    }
+
 
 }

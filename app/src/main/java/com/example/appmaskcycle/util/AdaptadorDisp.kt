@@ -58,9 +58,9 @@ class AdaptadorDisp(var content:Context, var array:ArrayList<DispMasc>): Recycle
 
         private fun actualizarUso (cont : Context, mascarilla: DispMasc) {
             doAsync {
-                val llamada = mascarilla.updateDispMasc(mascarilla.nombre,
-                    mascarilla.lavados,mascarilla.duracion,mascarilla.stock,
-                    mascarilla.comentario)
+                val llamada = mascarilla.updateDispMasc(mascarilla.id,
+                    mascarilla.nombre, mascarilla.lavados,
+                    mascarilla.duracion,mascarilla.stock, mascarilla.comentario)
                 llamada.enqueue(
                     object : Callback<DataCodigoError>{
                         override fun onFailure(call: Call<DataCodigoError>, t: Throwable) {

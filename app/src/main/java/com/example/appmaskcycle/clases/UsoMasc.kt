@@ -64,17 +64,21 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
     }
 
     override fun updateUsoMasc(
-        idPack: Int,
         inicio: String,
         activa: String,
         horasVida: String,
         final: String,
         lavados: Int
     ): Call<DataCodigoError> {
-        val sql = "update uso_masc set id_pack  = $idPack ," +
+        val sql = "update uso_masc set" +
                 " inicio = '$inicio', activa = '$activa', horas_vida = '$horasVida', " +
                 " final = '$final' , lavados = $lavados ; "
         return c.execute(sql)
+    }
+
+    override fun deleteUsoMasc(id: Int): Call<DataCodigoError> {
+        val sql  = "delete from uso_masc where id = $id;"
+        return  c.execute(sql)
     }
 
 
