@@ -59,8 +59,8 @@ class AnadirDispActivity : AppCompatActivity() {
             var lavados = 0
             if(comprobarMostrar(tipoMarcado)){
                 durac = etDuracion.text.toString().toInt()
-                if(durac>24){
-                    durac = 24
+                if(durac>23){
+                    durac = 23
                 }
                 lavados = etLavados.text.toString().toInt()
             }else{

@@ -62,6 +62,26 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
          return c.executeQueryUsoMasc(sql)
     }
 
+    override fun getUsoMascPorId(id: Int): Call<List<DataUsoMasc>> {
+        val sql = "select u.id, d.nombre,t.nombre_t 'tipo', t.info_extra 't_info', " +
+                "u.inicio,u.activa,u.horas_vida,u.final,u.lavados " +
+                "from uso_masc u " +
+                "join (disp_masc d, tipos_masc t) " +
+                "on (u.id_pack = d.id and d.id = t.id ) " +
+                "where d.id=$id;"
+        return c.executeQueryUsoMasc(sql)
+    }
+
+    override fun getUsoMascPorIdPack(idPack: Int): Call<List<DataUsoMasc>> {
+        val sql = "select u.id, d.nombre,t.nombre_t 'tipo', t.info_extra 't_info', " +
+                "u.inicio,u.activa,u.horas_vida,u.final,u.lavados " +
+                "from uso_masc u " +
+                "join (disp_masc d, tipos_masc t) " +
+                "on (u.id_pack = d.id and d.id = t.id ) " +
+                "where d.id_pack=$idPack;"
+        return c.executeQueryUsoMasc(sql)
+    }
+
     override fun insertarUsoMasc(
         idPack: Int,
         inicio: String,
@@ -78,6 +98,7 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
     }
 
     override fun updateUsoMasc(
+        id:Int,
         inicio: String,
         activa: String,
         horasVida: String,
@@ -86,7 +107,7 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
     ): Call<DataCodigoError> {
         val sql = "update uso_masc set" +
                 " inicio = '$inicio', activa = '$activa', horas_vida = '$horasVida', " +
-                " final = '$final' , lavados = $lavados ; "
+                " final = '$final' , lavados = $lavados where id = $id;"
         return c.execute(sql)
     }
 

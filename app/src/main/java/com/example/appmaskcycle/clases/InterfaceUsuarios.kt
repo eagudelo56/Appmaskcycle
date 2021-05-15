@@ -9,6 +9,6 @@ interface InterfaceUsuarios {
     fun getUsuarioPorNombre(nombre:String): Call<List<DataUsuarios>>
     fun getUsuarioPorId(id:Int): Call<List<DataUsuarios>>
     fun insertarUsuario(nombre:String,contrasena : String):Call<DataCodigoError>
-    fun updateUsuario (nombre:String,contrasena : String):Call<DataCodigoError>
+    fun updateUsuario (id:Int, nombre:String,contrasena : String):Call<DataCodigoError>
     fun deleteUsuario (id:Int):Call<DataCodigoError>
 }
