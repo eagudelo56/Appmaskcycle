@@ -3,6 +3,7 @@ package com.example.appmaskcycle
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,7 @@ import retrofit2.Response
 class HomeActivity : AppCompatActivity() {
 
     private var pantalla = 0
-
+    private var xInicio = 0.0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +53,53 @@ class HomeActivity : AppCompatActivity() {
             cambiarPantalla()
         }
 
+
+        rvHome.setOnTouchListener(object : View.OnTouchListener {
+            var continuar = false
+            //continuar es para que cambiarPantalla() se
+            //ejecute solo una vez cuando se desliza el dedo
+            override fun onTouch(v: View, event: MotionEvent): Boolean {
+                val eventX = event.x
+                val logitudMovimineto = 300
+                //eventX es la posicion de la pantalla que se pulsa
+                //logitudMovimineto es la distancia que hay que recorrer
+                // para que se llame a cambiarPantalla()
+                when (event.action) {
+                    //cuando se toca el rv por primera vez
+                    MotionEvent.ACTION_DOWN -> {
+                        xInicio = eventX
+                        continuar = true
+                    }
+                    //cuando se mueve el dedo por la pantalla
+                    MotionEvent.ACTION_MOVE -> {
+                        //mueve el dedo a la derecha
+                        //hace lo mismo que tvUso
+                        if (eventX > (xInicio + logitudMovimineto)
+                                && continuar) {
+                            continuar = false
+                            pantalla = 0
+                            cambiarPantalla()
+                        }
+                        //mueve el dedo a la izquierda
+                        //hace lo mismo que tvDisp
+                        if (eventX < (xInicio - logitudMovimineto)
+                                && continuar) {
+                            continuar = false
+                            pantalla = 1
+                            cambiarPantalla()
+                        }
+                    }
+                    //cuando se levanta el dedo
+                    MotionEvent.ACTION_UP -> {
+                        continuar = false
+                    }
+                }
+                return true
+            }
+        })
     }
+
+
     /* 0 == USO Y 1 == DISPONIBLES*/
     private fun cambiarPantalla (){
         val usr = Usuarios.idActual
