@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.appmaskcycle.clases.UsoMasc
 import com.example.appmaskcycle.util.ConvertirDb
+import kotlinx.android.synthetic.main.activity_detalles_uso.*
 import java.util.*
 
 class DetallesUsoActivity : AppCompatActivity() {
