@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.appmaskcycle.DetallesDispActivity
+import com.example.appmaskcycle.DetallesUsoActivity
 import com.example.appmaskcycle.HomeActivity
 import com.example.appmaskcycle.R
 import com.example.appmaskcycle.api.DataCodigoError
@@ -57,6 +59,20 @@ class AdaptadorDisp(private var content:Context, private var array:ArrayList<Dis
                         mascarilla
                     )
                 }
+            }
+
+            //*pasar los datos a verDetallesDisp*/
+            itemView.btnUsoVerDetalles.setOnClickListener {
+                val intent = Intent(cont, DetallesDispActivity::class.java)
+                intent.putExtra("id",mascarilla.id)
+                intent.putExtra("nombre", mascarilla.nombre)
+                intent.putExtra("tipo", mascarilla.tipo)
+                intent.putExtra("tInfo",mascarilla.tInfo)
+                intent.putExtra("lavados",mascarilla.lavados)
+                intent.putExtra("duracion",mascarilla.duracion)
+                intent.putExtra("stock", mascarilla.stock)
+                intent.putExtra("comentario",mascarilla.comentario)
+                cont.startActivity(intent)
             }
         }
 

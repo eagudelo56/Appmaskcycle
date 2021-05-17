@@ -3,8 +3,7 @@ package com.example.appmaskcycle
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +15,7 @@ import com.example.appmaskcycle.util.AdaptadorDisp
 import com.example.appmaskcycle.util.AdaptadorUso
 import kotlinx.android.synthetic.main.activity_home.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.startActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,7 +33,7 @@ class HomeActivity : AppCompatActivity() {
 
         /*
         *
-        * title es un atrivuto de la actividad
+        * title es un atributo de la actividad
         * con getString se obtienen los textos del archivo strings
         *
         * */
@@ -276,6 +276,34 @@ class HomeActivity : AppCompatActivity() {
 
                 }
             )
+        }
+    }
+
+    //se implementa el menu del documento xml a la actividad
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.layout_menu, menu)
+        return true
+    }
+
+
+    //eventos del menu según la id del item pulsado
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            //cuando se pulsa el item con id menu_itm_1
+            R.id.menuAjusteUsuario -> {
+                startActivity(Intent(this,AjustesUsuarioActivity::class.java))
+                true
+            }
+            R.id.menuInfoMasc -> {
+                startActivity(Intent(this,InfoMascActivity::class.java))
+                true
+            }
+            R.id.menuManual -> {
+                startActivity(Intent(this,ManualActivity::class.java))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

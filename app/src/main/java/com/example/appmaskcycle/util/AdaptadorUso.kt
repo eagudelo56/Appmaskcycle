@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.appmaskcycle.DetallesUsoActivity
 import com.example.appmaskcycle.HomeActivity
 import com.example.appmaskcycle.R
 import com.example.appmaskcycle.api.DataCodigoError
@@ -24,7 +25,7 @@ import kotlin.collections.ArrayList
 class AdaptadorUso (var content:Context,var array:ArrayList<UsoMasc>): RecyclerView.Adapter<AdaptadorUso.ViewHolder>(){
 
     class ViewHolder(view:View):RecyclerView.ViewHolder(view){
-        fun bind(mascarilla:UsoMasc){
+        fun bind(mascarilla:UsoMasc,content: Context){
             //guarda el objeto de la poscion actual
             itemView.tvUsoNombre.text = mascarilla.nombre
             itemView.tvUsoDuracion.text =
@@ -39,6 +40,21 @@ class AdaptadorUso (var content:Context,var array:ArrayList<UsoMasc>): RecyclerV
                     val newFecha = Calendar.getInstance()
                     newFecha.time = Date(diferencia)
                 }
+            }
+
+            /* boton ver detalles*/
+            itemView.btnUsoVerDetalles.setOnClickListener {
+                val intent = Intent(content,DetallesUsoActivity::class.java)
+                intent.putExtra("id",mascarilla.id)
+                intent.putExtra("nombre", mascarilla.nombre)
+                intent.putExtra("tipo", mascarilla.tipo)
+                intent.putExtra("tInfo",mascarilla.tInfo)
+                intent.putExtra("inicio",ConvertirDb.getStringFromCalendar(mascarilla.inicio))
+                intent.putExtra("activa", mascarilla.activa)
+                intent.putExtra("horasVida",ConvertirDb.getStringFromCalendar(mascarilla.horasVida))
+                intent.putExtra("final", ConvertirDb.getStringFromCalendar(mascarilla.final))
+                intent.putExtra("lavados",mascarilla.lavados)
+                content.startActivity(intent)
             }
         }
 
@@ -104,6 +120,7 @@ class AdaptadorUso (var content:Context,var array:ArrayList<UsoMasc>): RecyclerV
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = array[position]
-        holder.bind(item)
+        holder.bind(item,content)
+
     }
 }
