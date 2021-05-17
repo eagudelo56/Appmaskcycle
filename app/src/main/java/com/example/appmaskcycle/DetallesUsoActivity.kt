@@ -1,11 +1,10 @@
 package com.example.appmaskcycle
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.appmaskcycle.clases.UsoMasc
 import com.example.appmaskcycle.util.ConvertirDb
 import kotlinx.android.synthetic.main.activity_detalles_uso.*
-import java.util.*
 
 class DetallesUsoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,11 +30,11 @@ class DetallesUsoActivity : AppCompatActivity() {
             inicioCal,activa,horasVidaCal,finalCal,lavados)
 
 
-        tvDetalleUsoNombre.setText(mascarilla.nombre)
-        tvDetalleUsoTipo.setText(mascarilla.tipo)
-        tvDetalleUsoTinfo.setText(mascarilla.tInfo)
-        tvDetalleUsoHorasVida.setText(mascarilla.getHoraVformato())
-        tvDetalleUsoLavados.setText(mascarilla.lavados.toString())
+        tvDetalleUsoNombre.text = mascarilla.nombre
+        tvDetalleUsoTipo.text = mascarilla.tipo
+        tvDetalleUsotInfo.text = mascarilla.tInfo
+        tvDetalleUsoHorasVida.text = mascarilla.getHoraVformato()
+        tvDetalleUsoLavados.text = mascarilla.lavados.toString()
 
     }
 }
