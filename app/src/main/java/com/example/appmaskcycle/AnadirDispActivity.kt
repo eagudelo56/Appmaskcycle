@@ -68,7 +68,7 @@ class AnadirDispActivity : AppCompatActivity() {
                 //pos 0 = clave, pos 1 = id tipo, pos 2 = stock
                 val arrQR = result.contents.split("-")
                 val claveQR = "AppMaskCycle"
-                val stockQR = arrQR[2].toInt()
+                val stockQR = arrQR[2]
                 if(arrQR[0] == claveQR){
                     val idTipo = arrQR[1].toInt()
                     val arr = arrTiposGloval
@@ -78,8 +78,9 @@ class AnadirDispActivity : AppCompatActivity() {
                                 spTipos.setSelection(i.id-1)
                                 etNombre.setText(i.nombre_t)
                                 etStock.setText(stockQR)
-                                etLavados.setText(0)
-                                etDuracion.setText(i.duracion)
+                                etLavados.setText(0.toString())
+                                etDuracion.setText(i.duracion.toString())
+                                Toast.makeText(this, "ESCANEADO CON EXITO", Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
@@ -87,8 +88,7 @@ class AnadirDispActivity : AppCompatActivity() {
                     Toast.makeText(this, "CODIGO QR NO VALIDO", Toast.LENGTH_SHORT).show()
                 }
             }
-        }
-        else{
+        }else{
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
