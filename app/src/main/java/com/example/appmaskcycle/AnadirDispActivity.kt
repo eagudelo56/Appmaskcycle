@@ -1,6 +1,7 @@
 package com.example.appmaskcycle
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -14,6 +15,7 @@ import com.example.appmaskcycle.clases.FactoriaDispMasc
 import com.example.appmaskcycle.clases.FactoriaTiposMasc
 import com.example.appmaskcycle.clases.TiposMasc
 import com.example.appmaskcycle.clases.Usuarios
+import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.activity_anadir_disp.*
 import org.jetbrains.anko.doAsync
 import retrofit2.Call
@@ -39,7 +41,58 @@ class AnadirDispActivity : AppCompatActivity() {
             validarFormulario()
         }
 
+        btnQR.setOnClickListener{
+            initScan()
+        }
+
     }
+
+    private fun initScan() {
+        val integrator = IntentIntegrator(this)
+
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
+        integrator.setPrompt("Escanea el codigo qr del paquete de las mascarillas")
+        integrator.setBeepEnabled(true)
+
+        integrator.initiateScan()
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data)
+        if(result!=null){
+            if(result.contents==null){
+                Toast.makeText(this, "CANCELADO", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                //pos 0 = clave, pos 1 = id tipo, pos 2 = stock
+                val arrQR = result.contents.split("-")
+                val claveQR = "AppMaskCycle"
+                val stockQR = arrQR[2].toInt()
+                if(arrQR[0] == claveQR){
+                    val idTipo = arrQR[1].toInt()
+                    val arr = arrTiposGloval
+                    if(arr!=null){
+                        for(i in arr){
+                            if(i.id == idTipo){
+                                spTipos.setSelection(i.id-1)
+                                etNombre.setText(i.nombre_t)
+                                etStock.setText(stockQR)
+                                etLavados.setText(0)
+                                etDuracion.setText(i.duracion)
+                            }
+                        }
+                    }
+                }else{
+                    Toast.makeText(this, "CODIGO QR NO VALIDO", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        else{
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
 
     private fun validarFormulario () {
         var relleno = true

@@ -22,6 +22,8 @@ import retrofit2.Response
 
 class HomeActivity : AppCompatActivity() {
 
+    //companion object var pantalla??????
+
     private var pantalla = 0
     private var xInicio = 0.0f
 
@@ -241,8 +243,6 @@ class HomeActivity : AppCompatActivity() {
                             }
                         }
                     }
-
-
                 }
             )
         }

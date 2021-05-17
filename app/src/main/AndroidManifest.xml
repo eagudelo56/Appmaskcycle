@@ -5,6 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
+
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
@@ -14,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:targetApi="23">
+        tools:targetApi="23"
+        android:hardwareAccelerated="true">
         <activity android:name=".DetallesUsoActivity"></activity>
         <activity android:name=".DetallesDispActivity" />
         <activity android:name=".AjustesUsuarioActivity" />
@@ -30,6 +33,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="portrait"
+            tools:replace="screenOrientation" />
     </application>
 
 </manifest>
