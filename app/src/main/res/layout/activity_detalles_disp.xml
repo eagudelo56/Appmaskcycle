@@ -6,4 +6,156 @@
     android:layout_height="match_parent"
     tools:context=".DetallesDispActivity">
 
+    <TextView
+        android:id="@+id/tvDetalleDispStock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="53dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvDetalleDispLavados"
+        app:layout_constraintStart_toStartOf="@+id/tvDetalleDispTipo" />
+
+    <TextView
+        android:id="@+id/tvDetalleDisp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginLeft="68dp"
+        android:layout_marginTop="61dp"
+        android:text="DETALLES"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/labelDetalleDispNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="66dp"
+        android:layout_marginLeft="66dp"
+        android:layout_marginBottom="45dp"
+        android:text="Nombre:"
+        app:layout_constraintBottom_toTopOf="@+id/labelDetalleDispTipo"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/labelDetalleDispTipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginBottom="40dp"
+        android:text="Tipo:"
+        app:layout_constraintBottom_toTopOf="@+id/labelDetalleDispDuracion"
+        app:layout_constraintStart_toStartOf="@+id/labelDetalleDispDuracion" />
+
+    <TextView
+        android:id="@+id/labelDetalleDispDuracion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="66dp"
+        android:layout_marginLeft="66dp"
+        android:layout_marginTop="313dp"
+        android:text="Duración:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/labelDetalleDispStock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="35dp"
+        android:text="Stock"
+        app:layout_constraintStart_toStartOf="@+id/labelDetalleDispDuracion"
+        app:layout_constraintTop_toBottomOf="@+id/labelDetalleDispDuracion" />
+
+    <TextView
+        android:id="@+id/labelDetalleDispLavados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="66dp"
+        android:layout_marginLeft="66dp"
+        android:layout_marginTop="53dp"
+        android:text="Lavados:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelDetalleDispStock" />
+
+    <TextView
+        android:id="@+id/labelDetalleDispComentario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="66dp"
+        android:layout_marginLeft="66dp"
+        android:layout_marginTop="57dp"
+        android:text="Comentario:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelDetalleDispLavados" />
+
+    <TextView
+        android:id="@+id/tvDetalleDispNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="43dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvDetalleDispTipo"
+        app:layout_constraintEnd_toEndOf="@+id/tvDetalleDispTipo" />
+
+    <TextView
+        android:id="@+id/tvDetalleDispTipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="173dp"
+        android:layout_marginLeft="173dp"
+        android:layout_marginEnd="172dp"
+        android:layout_marginRight="172dp"
+        android:layout_marginBottom="42dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvDetalleDispDuracion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/labelDetalleDispDuracion" />
+
+    <TextView
+        android:id="@+id/tvDetalleDispDuracion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="35dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvDetalleDispStock"
+        app:layout_constraintEnd_toEndOf="@+id/tvDetalleDispStock" />
+
+    <TextView
+        android:id="@+id/tvDetalleDispLavados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginBottom="53dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvDetalleDispComentario"
+        app:layout_constraintEnd_toEndOf="@+id/tvDetalleDispStock" />
+
+    <TextView
+        android:id="@+id/tvDetalleDispComentario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/labelDetalleDispComentario"
+        app:layout_constraintEnd_toEndOf="@+id/tvDetalleDispLavados" />
+
+    <Button
+        android:id="@+id/btnDetalleDispEliminar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="63dp"
+        android:layout_marginLeft="63dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="63dp"
+        android:layout_marginRight="63dp"
+        android:layout_marginBottom="75dp"
+        android:text="ELIMINAR"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvDetalleDispComentario"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelDetalleDispComentario" />
 </androidx.constraintlayout.widget.ConstraintLayout>
