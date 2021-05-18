@@ -1,5 +1,7 @@
 package com.example.appmaskcycle
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -13,19 +15,21 @@ import com.example.appmaskcycle.api.DataUsoMasc
 import com.example.appmaskcycle.clases.*
 import com.example.appmaskcycle.util.AdaptadorDisp
 import com.example.appmaskcycle.util.AdaptadorUso
+import com.example.appmaskcycle.util.ConvertirDb
 import kotlinx.android.synthetic.main.activity_home.*
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.startActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeActivity : AppCompatActivity() {
 
     //companion object var pantalla??????
 
     private var pantalla = 0
-    private var xInicio = 0.0f
+    //private var xInicio = 0.0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +59,7 @@ class HomeActivity : AppCompatActivity() {
             cambiarPantalla()
         }
 
-
+        /*
         rvHome.setOnTouchListener(object : View.OnTouchListener {
             var continuar = false
             //continuar es para que cambiarPantalla() se
@@ -98,7 +102,7 @@ class HomeActivity : AppCompatActivity() {
                 }
                 return true
             }
-        })
+        })*/
     }
 
 
@@ -106,6 +110,7 @@ class HomeActivity : AppCompatActivity() {
     private fun cambiarPantalla (){
         val usr = Usuarios.idActual
         if(usr!=null){ /* estamos en disponibles y cambiamos a la uso*/
+            revisarUso(usr)
             comprobarEliminarDisp(usr)
             if(pantalla==0){
                 tvUso.setTextColor(Color.GREEN)
@@ -124,7 +129,6 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
         cambiarPantalla()
     }
 
@@ -185,6 +189,93 @@ class HomeActivity : AppCompatActivity() {
             )
         }
     }
+
+
+    private fun revisarUso(usr:Int) {
+        val cont = this
+        doAsync {
+            val objDAO = FactoriaUsoMasc.getUsoMascDao()
+            val llamada = objDAO.getUsoMascByUsuario(usr)
+            llamada.enqueue( /*con este meto EJECUTAMOS la llamada*/
+                object : Callback<List<DataUsoMasc>>{
+                    override fun onFailure(call: Call<List<DataUsoMasc>>, t: Throwable) {
+                        Toast.makeText(cont,t.localizedMessage, Toast.LENGTH_LONG).show()
+                    }
+                    override fun onResponse(
+                        call: Call<List<DataUsoMasc>>,
+                        response: Response<List<DataUsoMasc>>
+                    ) {
+                        val respuesta = response.body()
+                        if(respuesta!=null) {
+                            val array = UsoMasc.convertir(respuesta)
+                            for(i in array){
+                                if(i.final.timeInMillis<Calendar.getInstance().timeInMillis
+                                    && !i.activa){
+                                    eliminarUso(i.id)
+                                }else{
+
+                                    val pausa = Calendar.getInstance().timeInMillis
+
+                                    val inicio = i.inicio.timeInMillis
+                                    val diferencia = pausa.minus(inicio)
+
+                                    i.horasVida.timeInMillis = diferencia
+                                    i.final
+
+                                    actualizarUso(
+                                        i.id,
+                                        ConvertirDb.getStringFromCalendar(i.inicio),
+                                        ConvertirDb.getStringFromBoolean(i.activa),
+                                        ConvertirDb.getStringFromCalendar(i.horasVida),
+                                        ConvertirDb.getStringFromCalendar(i.final),
+                                        i.lavados
+                                    )
+                                }
+                            }
+                        }
+                    }
+                })
+        }
+    }
+
+    private fun actualizarUso (id:Int, inicio: String,
+                               activa: String,
+                               horasVida: String,
+                               final: String,
+                               lavados: Int) {
+        val cont = this
+        doAsync {
+            val objDao = FactoriaUsoMasc.getUsoMascDao()
+            val llamada = objDao.updateUsoMasc(id, inicio,
+                activa, horasVida,
+                final, lavados)
+            llamada.enqueue(
+                object : Callback<DataCodigoError> {
+                    override fun onFailure(call: Call<DataCodigoError>, t: Throwable) {
+                        Toast.makeText(cont,t.localizedMessage, Toast.LENGTH_LONG).show()
+                    }
+
+                    override fun onResponse(
+                        call: Call<DataCodigoError>,
+                        response: Response<DataCodigoError>
+                    ) {
+                        val respuesta = response.body()
+                        if(respuesta!=null){
+                            val codigo = respuesta.codigoError
+                            if(codigo == 1){
+                                //Toast.makeText(cont,"bien", Toast.LENGTH_LONG).show()
+                            }else{
+                                Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    }
+
+                }
+            )
+        }
+
+    }
+
 
     private fun comprobarEliminarDisp(usr:Int) {
         /*
@@ -253,6 +344,37 @@ class HomeActivity : AppCompatActivity() {
         doAsync {
             val objDao = FactoriaDispMasc.getDispMascDao()
             val llamada = objDao.deleteDispMasc(id)
+            llamada.enqueue(
+                object : Callback<DataCodigoError>{
+                    override fun onFailure(call: Call<DataCodigoError>, t: Throwable) {
+                        Toast.makeText(cont,t.localizedMessage, Toast.LENGTH_LONG).show()
+                    }
+
+                    override fun onResponse(
+                        call: Call<DataCodigoError>,
+                        response: Response<DataCodigoError>
+                    ) {
+                        val respuesta = response.body()
+                        if(respuesta!=null){
+                            val codigo = respuesta.codigoError
+                            if(codigo == 1){
+                                Toast.makeText(cont,"bien", Toast.LENGTH_LONG).show()
+                            }else{
+                                Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    }
+
+                }
+            )
+        }
+    }
+
+    private fun eliminarUso(id: Int) {
+        val cont = this
+        doAsync {
+            val objDao = FactoriaUsoMasc.getUsoMascDao()
+            val llamada = objDao.deleteUsoMasc(id)
             llamada.enqueue(
                 object : Callback<DataCodigoError>{
                     override fun onFailure(call: Call<DataCodigoError>, t: Throwable) {

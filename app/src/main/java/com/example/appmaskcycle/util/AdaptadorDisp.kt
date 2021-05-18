@@ -3,20 +3,20 @@ package com.example.appmaskcycle.util
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.provider.AlarmClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appmaskcycle.DetallesDispActivity
-import com.example.appmaskcycle.DetallesUsoActivity
 import com.example.appmaskcycle.HomeActivity
 import com.example.appmaskcycle.R
 import com.example.appmaskcycle.api.DataCodigoError
-import com.example.appmaskcycle.api.DataUsoMasc
 import com.example.appmaskcycle.clases.DispMasc
-import com.example.appmaskcycle.clases.FactoriaDispMasc
 import com.example.appmaskcycle.clases.FactoriaUsoMasc
+import com.example.appmaskcycle.clases.UsoMasc
 import kotlinx.android.synthetic.main.disp_masc.view.*
 import org.jetbrains.anko.doAsync
 import retrofit2.Call
@@ -48,6 +48,15 @@ class AdaptadorDisp(private var content:Context, private var array:ArrayList<Dis
                     val horasVida = ConvertirDb.getStringFromCalendar(auxHorasVida)
                     val final = ConvertirDb.getStringFromCalendar(auxFinal)
                     val lavados = mascarilla.lavados
+
+
+                    val mascUso = FactoriaUsoMasc.getUsoMascDao()
+                    mascUso.nombre = mascarilla.nombre
+                    mascUso.final = auxFinal
+
+
+                    ponerAlarma(cont, mascUso)
+
                     insertarUsoDb(
                         cont,
                         idPack,
@@ -159,6 +168,27 @@ class AdaptadorDisp(private var content:Context, private var array:ArrayList<Dis
                     }
                 )
             }
+        }
+
+
+        private fun ponerAlarma(cont: Context,mascarilla: UsoMasc){
+            val fin = mascarilla.final
+            val adelanto = -10
+            fin.add(Calendar.MINUTE, adelanto)
+
+            val horas = fin.get(Calendar.HOUR_OF_DAY)
+            val min = fin.get(Calendar.MINUTE)
+
+            val intentAlarm = Intent(AlarmClock.ACTION_SET_ALARM)
+            intentAlarm.putExtra(AlarmClock.EXTRA_MESSAGE,mascarilla.nombre)
+            intentAlarm.putExtra(AlarmClock.EXTRA_HOUR,horas)
+            intentAlarm.putExtra(AlarmClock.EXTRA_MINUTES,min)
+            intentAlarm.putExtra(
+                    AlarmClock.EXTRA_DAYS,
+                    ArrayList<Int>(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)))
+
+            intentAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI,true)
+            cont.startActivity(intentAlarm)
         }
     }
 

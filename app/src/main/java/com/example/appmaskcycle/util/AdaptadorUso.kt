@@ -3,6 +3,7 @@ package com.example.appmaskcycle.util
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.provider.AlarmClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,12 +34,9 @@ class AdaptadorUso (var content:Context,var array:ArrayList<UsoMasc>): RecyclerV
 
             itemView.btnUsoAccion.setOnClickListener{
                 if(mascarilla.activa){
-                    mascarilla.activa = false
-                    val actual = Calendar.getInstance().timeInMillis
-                    val inicio = mascarilla.inicio.timeInMillis
-                    val diferencia = actual.minus(inicio)
-                    val newFecha = Calendar.getInstance()
-                    newFecha.time = Date(diferencia)
+                    pausarMascarilla(content,mascarilla)
+                }else{
+                    activarMascarilla(content,mascarilla)
                 }
             }
 
@@ -106,6 +104,75 @@ class AdaptadorUso (var content:Context,var array:ArrayList<UsoMasc>): RecyclerV
             }
 
         }
+
+
+        private fun quitarAlarma(mascarilla:UsoMasc,content: Context){
+            val intentAlarm = Intent(AlarmClock.ACTION_DISMISS_ALARM)
+            val fin = mascarilla.final
+            val adelanto = -10
+            fin.add(Calendar.MINUTE, adelanto)
+
+            val horas = fin.get(Calendar.HOUR_OF_DAY)
+            val min = fin.get(Calendar.MINUTE)
+
+            intentAlarm.putExtra(AlarmClock.EXTRA_ALARM_SEARCH_MODE, AlarmClock.ALARM_SEARCH_MODE_TIME)
+            intentAlarm.putExtra(AlarmClock.EXTRA_HOUR,horas)
+            intentAlarm.putExtra(AlarmClock.EXTRA_MINUTES,min)
+            content.startActivity(intentAlarm)
+        }
+
+        private fun ponerAlarma(cont: Context,mascarilla: UsoMasc){
+            val fin = mascarilla.final
+            val adelanto = -10
+            fin.add(Calendar.MINUTE, adelanto)
+
+            val horas = fin.get(Calendar.HOUR_OF_DAY)
+            val min = fin.get(Calendar.MINUTE)
+
+            val intentAlarm = Intent(AlarmClock.ACTION_SET_ALARM)
+            intentAlarm.putExtra(AlarmClock.EXTRA_MESSAGE,mascarilla.nombre)
+            intentAlarm.putExtra(AlarmClock.EXTRA_HOUR,horas)
+            intentAlarm.putExtra(AlarmClock.EXTRA_MINUTES,min)
+            intentAlarm.putExtra(
+                AlarmClock.EXTRA_DAYS,
+                ArrayList<Int>(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)))
+
+            intentAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI,true)
+            cont.startActivity(intentAlarm)
+        }
+
+
+        private fun pausarMascarilla(cont: Context,mascarilla: UsoMasc){
+            quitarAlarma(mascarilla,cont)
+            /*pausa - inicio*/
+            mascarilla.activa = false
+            val pausa = Calendar.getInstance().timeInMillis
+            if(pausa<mascarilla.final.timeInMillis){
+                val inicio = mascarilla.inicio.timeInMillis
+                val diferencia = pausa.minus(inicio)
+                val auxHorasVida = Date(diferencia)
+
+                mascarilla.horasVida.time = auxHorasVida
+                mascarilla.final
+
+                actualizarUso(
+                    cont,
+                    mascarilla.id,
+                    ConvertirDb.getStringFromCalendar(mascarilla.inicio),
+                    ConvertirDb.getStringFromBoolean(mascarilla.activa),
+                    ConvertirDb.getStringFromCalendar(mascarilla.horasVida),
+                    ConvertirDb.getStringFromCalendar(mascarilla.final),
+                    mascarilla.lavados
+                )
+            }else{
+
+            }
+        }
+
+        private fun activarMascarilla(cont: Context,mascarilla: UsoMasc){
+            mascarilla.activa = true
+        }
+
     }
 
     override fun getItemCount():Int{

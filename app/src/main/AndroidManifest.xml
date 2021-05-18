@@ -4,6 +4,7 @@
     package="com.example.appmaskcycle">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
     <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
 
