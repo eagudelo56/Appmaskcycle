@@ -19,7 +19,6 @@ class DetallesDispActivity : AppCompatActivity() {
         val stock = extras.getInt("stock")
         val comentario = extras.getString("comentario")
 
-
         val mascarilla = DispMasc(id,nombre!!,tipo!!,tInfo!!,lavados,duracion,stock,comentario!!)
 
 

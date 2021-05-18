@@ -32,7 +32,7 @@ class DetallesUsoActivity : AppCompatActivity() {
 
         tvDetalleUsoNombre.text = mascarilla.nombre
         tvDetalleUsoTipo.text = mascarilla.tipo
-        tvDetalleUsotInfo.text = mascarilla.tInfo
+        tvDetalleUsoTinfo.text = mascarilla.tInfo
         tvDetalleUsoHorasVida.text = mascarilla.getHoraVformato()
         tvDetalleUsoLavados.text = mascarilla.lavados.toString()
 
