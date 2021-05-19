@@ -218,13 +218,6 @@ class HomeActivity : AppCompatActivity() {
 
                                     val final = i.final.timeInMillis
                                     var diferencia = final.minus(pausa)
-                                    /*
-                                    *
-                                    * 3600000 es una hora
-                                    * al calcularlo hay que restarle una hora
-                                    *
-                                    * */
-                                    diferencia = diferencia.minus(3600000.toLong())
 
                                     i.horasVida.timeInMillis = diferencia
 

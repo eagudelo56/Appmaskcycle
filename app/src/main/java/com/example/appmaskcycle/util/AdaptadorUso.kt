@@ -3,6 +3,7 @@ package com.example.appmaskcycle.util
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.provider.AlarmClock
 import android.view.LayoutInflater
 import android.view.View
@@ -143,17 +144,17 @@ class AdaptadorUso (var content:Context,var array:ArrayList<UsoMasc>): RecyclerV
 
 
         private fun pausarMascarilla(cont: Context,mascarilla: UsoMasc){
-            quitarAlarma(mascarilla,cont)
             /*pausa - inicio*/
-            mascarilla.activa = false
-            val pausa = Calendar.getInstance().timeInMillis
-            if(pausa<mascarilla.final.timeInMillis){
+            val actual = Calendar.getInstance().timeInMillis
+            if(actual<mascarilla.final.timeInMillis){
+                mascarilla.activa = false
+                quitarAlarma(mascarilla,cont)
                 val inicio = mascarilla.inicio.timeInMillis
-                val diferencia = pausa.minus(inicio)
-                val auxHorasVida = Date(diferencia)
+                var diferencia = actual.minus(inicio)
 
-                mascarilla.horasVida.time = auxHorasVida
-                mascarilla.final
+                //diferencia = diferencia.minus(3600000.toLong())
+                mascarilla.horasVida.timeInMillis = diferencia
+
 
                 actualizarUso(
                     cont,
