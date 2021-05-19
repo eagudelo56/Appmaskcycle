@@ -40,7 +40,7 @@ class AdaptadorDisp(private var content:Context, private var array:ArrayList<Dis
                     auxHorasVida.set(Calendar.SECOND, 0)
 
                     val auxFinal = Calendar.getInstance()
-                    auxFinal.add(Calendar.HOUR_OF_DAY, mascarilla.duracion)
+                    auxFinal.add(Calendar.HOUR_OF_DAY, mascarilla.duracion-1)
 
                     val idPack = mascarilla.id
                     val inicio = ConvertirDb.getStringFromCalendar(Calendar.getInstance())

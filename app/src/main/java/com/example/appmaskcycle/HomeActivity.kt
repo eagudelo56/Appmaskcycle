@@ -216,11 +216,10 @@ class HomeActivity : AppCompatActivity() {
 
                                     val pausa = Calendar.getInstance().timeInMillis
 
-                                    val inicio = i.inicio.timeInMillis
-                                    val diferencia = pausa.minus(inicio)
+                                    val final = i.final.timeInMillis
+                                    val diferencia = final.minus(pausa)
 
                                     i.horasVida.timeInMillis = diferencia
-                                    i.final
 
                                     actualizarUso(
                                         i.id,
