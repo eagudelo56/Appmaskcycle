@@ -27,16 +27,26 @@ import kotlin.collections.ArrayList
 class AdaptadorUso (var content:Context,var array:ArrayList<UsoMasc>): RecyclerView.Adapter<AdaptadorUso.ViewHolder>(){
 
     class ViewHolder(view:View):RecyclerView.ViewHolder(view){
+        private val colorPausa = "#000000"
+        private val colorActiva = "#ffffff"
         fun bind(mascarilla:UsoMasc,content: Context){
             //guarda el objeto de la poscion actual
             itemView.tvUsoNombre.text = mascarilla.nombre
             itemView.tvUsoDuracion.text =
                 mascarilla.getHoraVformato()
 
+            if(mascarilla.activa){
+                itemView.btnUsoAccion.setBackgroundColor(Color.parseColor(colorPausa))
+            }else{
+                itemView.btnUsoAccion.setBackgroundColor(Color.parseColor(colorActiva))
+            }
+
             itemView.btnUsoAccion.setOnClickListener{
                 if(mascarilla.activa){
+                    itemView.btnUsoAccion.setBackgroundColor(Color.parseColor(colorActiva))
                     pausarMascarilla(content,mascarilla)
                 }else{
+                    itemView.btnUsoAccion.setBackgroundColor(Color.parseColor(colorPausa))
                     activarMascarilla(content,mascarilla)
                 }
             }
@@ -54,6 +64,36 @@ class AdaptadorUso (var content:Context,var array:ArrayList<UsoMasc>): RecyclerV
                 intent.putExtra("final", ConvertirDb.getStringFromCalendar(mascarilla.final))
                 intent.putExtra("lavados",mascarilla.lavados)
                 content.startActivity(intent)
+            }
+        }
+
+        private fun eliminarUso(id: Int,cont:Context) {
+            doAsync {
+                val objDao = FactoriaUsoMasc.getUsoMascDao()
+                val llamada = objDao.deleteUsoMasc(id)
+                llamada.enqueue(
+                    object : Callback<DataCodigoError>{
+                        override fun onFailure(call: Call<DataCodigoError>, t: Throwable) {
+                            Toast.makeText(cont,t.localizedMessage, Toast.LENGTH_LONG).show()
+                        }
+
+                        override fun onResponse(
+                            call: Call<DataCodigoError>,
+                            response: Response<DataCodigoError>
+                        ) {
+                            val respuesta = response.body()
+                            if(respuesta!=null){
+                                val codigo = respuesta.codigoError
+                                if(codigo == 1){
+                                    Toast.makeText(cont,"bien", Toast.LENGTH_LONG).show()
+                                }else{
+                                    Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
+                                }
+                            }
+                        }
+
+                    }
+                )
             }
         }
 
@@ -137,7 +177,6 @@ class AdaptadorUso (var content:Context,var array:ArrayList<UsoMasc>): RecyclerV
             intentAlarm.putExtra(
                 AlarmClock.EXTRA_DAYS,
                 ArrayList<Int>(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)))
-
             intentAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI,true)
             cont.startActivity(intentAlarm)
         }
@@ -149,10 +188,13 @@ class AdaptadorUso (var content:Context,var array:ArrayList<UsoMasc>): RecyclerV
             if(actual<mascarilla.final.timeInMillis){
                 mascarilla.activa = false
                 quitarAlarma(mascarilla,cont)
-                val inicio = mascarilla.inicio.timeInMillis
-                var diferencia = actual.minus(inicio)
 
-                //diferencia = diferencia.minus(3600000.toLong())
+                val actual = Calendar.getInstance().timeInMillis
+
+                val final = mascarilla.final.timeInMillis
+                var diferencia = final.minus(actual)
+                diferencia = diferencia.minus(3600000.toLong())
+                diferencia = diferencia.plus(600000.toLong())
                 mascarilla.horasVida.timeInMillis = diferencia
 
 
@@ -166,12 +208,13 @@ class AdaptadorUso (var content:Context,var array:ArrayList<UsoMasc>): RecyclerV
                     mascarilla.lavados
                 )
             }else{
-
+                eliminarUso(mascarilla.id, cont)
             }
         }
 
         private fun activarMascarilla(cont: Context,mascarilla: UsoMasc){
             mascarilla.activa = true
+            ponerAlarma(cont,mascarilla)
         }
 
     }

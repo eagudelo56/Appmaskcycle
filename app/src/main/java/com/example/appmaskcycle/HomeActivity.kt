@@ -210,25 +210,26 @@ class HomeActivity : AppCompatActivity() {
                             val array = UsoMasc.convertir(respuesta)
                             for(i in array){
                                 if(i.final.timeInMillis<Calendar.getInstance().timeInMillis
-                                    && !i.activa){
+                                    && i.activa){
                                     eliminarUso(i.id)
                                 }else{
+                                    if(i.activa){
+                                        val actual = Calendar.getInstance().timeInMillis
 
-                                    val pausa = Calendar.getInstance().timeInMillis
+                                        val final = i.final.timeInMillis
+                                        var diferencia = final.minus(actual)
+                                        diferencia = diferencia.minus(3600000.toLong())
+                                        i.horasVida.timeInMillis = diferencia
 
-                                    val final = i.final.timeInMillis
-                                    var diferencia = final.minus(pausa)
-
-                                    i.horasVida.timeInMillis = diferencia
-
-                                    actualizarUso(
-                                        i.id,
-                                        ConvertirDb.getStringFromCalendar(i.inicio),
-                                        ConvertirDb.getStringFromBoolean(i.activa),
-                                        ConvertirDb.getStringFromCalendar(i.horasVida),
-                                        ConvertirDb.getStringFromCalendar(i.final),
-                                        i.lavados
-                                    )
+                                        actualizarUso(
+                                            i.id,
+                                            ConvertirDb.getStringFromCalendar(i.inicio),
+                                            ConvertirDb.getStringFromBoolean(i.activa),
+                                            ConvertirDb.getStringFromCalendar(i.horasVida),
+                                            ConvertirDb.getStringFromCalendar(i.final),
+                                            i.lavados
+                                        )
+                                    }
                                 }
                             }
                         }
