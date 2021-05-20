@@ -24,7 +24,7 @@ import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AdaptadorUso (var content:Context,var array:ArrayList<UsoMasc>): RecyclerView.Adapter<AdaptadorUso.ViewHolder>(){
+class AdaptadorUso (var content:Context, private var array:ArrayList<UsoMasc>): RecyclerView.Adapter<AdaptadorUso.ViewHolder>(){
 
     class ViewHolder(view:View):RecyclerView.ViewHolder(view){
         private val colorPausa = "#000000"
@@ -189,7 +189,6 @@ class AdaptadorUso (var content:Context,var array:ArrayList<UsoMasc>): RecyclerV
                 mascarilla.activa = false
                 quitarAlarma(mascarilla,cont)
 
-                val actual = Calendar.getInstance().timeInMillis
 
                 val final = mascarilla.final.timeInMillis
                 var diferencia = final.minus(actual)

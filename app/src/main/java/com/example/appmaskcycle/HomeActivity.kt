@@ -29,6 +29,7 @@ class HomeActivity : AppCompatActivity() {
     //companion object var pantalla??????
 
     private var pantalla = 0
+    private var primeraVez = true
     //private var xInicio = 0.0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,7 +111,6 @@ class HomeActivity : AppCompatActivity() {
     private fun cambiarPantalla (){
         val usr = Usuarios.idActual
         if(usr!=null){ /* estamos en disponibles y cambiamos a la uso*/
-            revisarUso(usr)
             comprobarEliminarDisp(usr)
             if(pantalla==0){
                 tvUso.setTextColor(Color.GREEN)
@@ -123,6 +123,10 @@ class HomeActivity : AppCompatActivity() {
                 tvDisp.setTextColor(Color.GREEN)
                 btnAddDisp.visibility = View.VISIBLE
                 recuperarDisponibles(usr)
+            }
+            if(primeraVez){
+                primeraVez = false
+                cambiarPantalla()
             }
         }
     }
@@ -182,36 +186,14 @@ class HomeActivity : AppCompatActivity() {
                         val respuesta = response.body()
                         if(respuesta!=null) {
                             val array = UsoMasc.convertir(respuesta)
-                            actualizarRVUso(array)
-                        }
-                    }
-                }
-            )
-        }
-    }
-
-
-    private fun revisarUso(usr:Int) {
-        val cont = this
-        doAsync {
-            val objDAO = FactoriaUsoMasc.getUsoMascDao()
-            val llamada = objDAO.getUsoMascByUsuario(usr)
-            llamada.enqueue( /*con este meto EJECUTAMOS la llamada*/
-                object : Callback<List<DataUsoMasc>>{
-                    override fun onFailure(call: Call<List<DataUsoMasc>>, t: Throwable) {
-                        Toast.makeText(cont,t.localizedMessage, Toast.LENGTH_LONG).show()
-                    }
-                    override fun onResponse(
-                        call: Call<List<DataUsoMasc>>,
-                        response: Response<List<DataUsoMasc>>
-                    ) {
-                        val respuesta = response.body()
-                        if(respuesta!=null) {
-                            val array = UsoMasc.convertir(respuesta)
+                            //se cambia el atributo horasVida de los objetos
+                            //y se actualiza la base de datos
                             for(i in array){
                                 if(i.final.timeInMillis<Calendar.getInstance().timeInMillis
                                     && i.activa){
                                     eliminarUso(i.id)
+                                    array.remove(i)
+                                    //si ha expirado se borra de la base de datos y del array
                                 }else{
                                     if(i.activa){
                                         val actual = Calendar.getInstance().timeInMillis
@@ -232,11 +214,14 @@ class HomeActivity : AppCompatActivity() {
                                     }
                                 }
                             }
+                            actualizarRVUso(array)
                         }
                     }
-                })
+                }
+            )
         }
     }
+
 
     private fun actualizarUso (id:Int, inicio: String,
                                activa: String,
