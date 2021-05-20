@@ -1,7 +1,5 @@
 package com.example.appmaskcycle
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -29,7 +27,6 @@ class HomeActivity : AppCompatActivity() {
     //companion object var pantalla??????
 
     private var pantalla = 0
-    private var primeraVez = true
     //private var xInicio = 0.0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -124,10 +121,6 @@ class HomeActivity : AppCompatActivity() {
                 btnAddDisp.visibility = View.VISIBLE
                 recuperarDisponibles(usr)
             }
-            if(primeraVez){
-                primeraVez = false
-                cambiarPantalla()
-            }
         }
     }
 
@@ -188,19 +181,22 @@ class HomeActivity : AppCompatActivity() {
                             val array = UsoMasc.convertir(respuesta)
                             //se cambia el atributo horasVida de los objetos
                             //y se actualiza la base de datos
+                            val actualCal = Calendar.getInstance()
+                            actualCal.set(Calendar.ZONE_OFFSET,0)
+                            val actual = actualCal.timeInMillis
                             for(i in array){
-                                if(i.final.timeInMillis<Calendar.getInstance().timeInMillis
+                                if(i.final.timeInMillis<actual
                                     && i.activa){
                                     eliminarUso(i.id)
                                     array.remove(i)
                                     //si ha expirado se borra de la base de datos y del array
                                 }else{
                                     if(i.activa){
-                                        val actual = Calendar.getInstance().timeInMillis
+
 
                                         val final = i.final.timeInMillis
-                                        var diferencia = final.minus(actual)
-                                        diferencia = diferencia.minus(3600000.toLong())
+                                        val diferencia = final.minus(actual)
+                                        //diferencia = diferencia.minus(3600000.toLong())
                                         i.horasVida.timeInMillis = diferencia
 
                                         actualizarUso(

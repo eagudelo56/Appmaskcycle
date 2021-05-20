@@ -184,7 +184,9 @@ class AdaptadorUso (var content:Context, private var array:ArrayList<UsoMasc>): 
 
         private fun pausarMascarilla(cont: Context,mascarilla: UsoMasc){
             /*pausa - inicio*/
-            val actual = Calendar.getInstance().timeInMillis
+            val actualCal = Calendar.getInstance()
+            actualCal.set(Calendar.ZONE_OFFSET,0)
+            val actual = actualCal.timeInMillis
             if(actual<mascarilla.final.timeInMillis){
                 mascarilla.activa = false
                 quitarAlarma(mascarilla,cont)
@@ -192,7 +194,7 @@ class AdaptadorUso (var content:Context, private var array:ArrayList<UsoMasc>): 
 
                 val final = mascarilla.final.timeInMillis
                 var diferencia = final.minus(actual)
-                diferencia = diferencia.minus(3600000.toLong())
+                //diferencia = diferencia.minus(3600000.toLong())
                 diferencia = diferencia.plus(600000.toLong())
                 mascarilla.horasVida.timeInMillis = diferencia
 
