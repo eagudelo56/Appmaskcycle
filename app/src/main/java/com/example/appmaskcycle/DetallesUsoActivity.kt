@@ -19,6 +19,8 @@ class DetallesUsoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalles_uso)
 
+        title = getString(R.string.nav_detalles)
+
         val extras = intent.extras!!
         val id = extras.getInt("id")
         val nombre = extras.getString("nombre")

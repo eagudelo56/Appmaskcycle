@@ -3,11 +3,11 @@
 
     <item
         android:id="@+id/menuAjusteUsuario"
-        android:title="Ajustes de usuario" />
+        android:title="@string/nav_ajustes_usr" />
     <item
         android:id="@+id/menuInfoMasc"
-        android:title="Informacion mascarillas" />
+        android:title="@string/nav_info_masc" />
     <item
         android:id="@+id/menuManual"
-        android:title="Manual" />
+        android:title="@string/nav_manual" />
 </menu>

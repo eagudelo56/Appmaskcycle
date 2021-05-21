@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
 
         etUser.text.clear()
         etContra.text.clear()
+        etUser.clearFocus()
+        etContra.clearFocus()
     }
 
 

@@ -27,7 +27,9 @@ class HomeActivity : AppCompatActivity() {
     //companion object var pantalla??????
 
     private var pantalla = 0
-    //private var xInicio = 0.0f
+    private var primeraVez = true
+    private var xInicio = 0.0f
+    private var continuar = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +41,7 @@ class HomeActivity : AppCompatActivity() {
         * con getString se obtienen los textos del archivo strings
         *
         * */
-        title = getString(R.string.titulo_home)
+        title = getString(R.string.nav_home)
 
         btnAddDisp.setOnClickListener{
             startActivity(Intent(this,AnadirDispActivity::class.java))
@@ -57,52 +59,58 @@ class HomeActivity : AppCompatActivity() {
             cambiarPantalla()
         }
 
-        /*
-        rvHome.setOnTouchListener(object : View.OnTouchListener {
-            var continuar = false
-            //continuar es para que cambiarPantalla() se
-            //ejecute solo una vez cuando se desliza el dedo
-            override fun onTouch(v: View, event: MotionEvent): Boolean {
-                val eventX = event.x
-                val logitudMovimineto = 300
-                //eventX es la posicion de la pantalla que se pulsa
-                //logitudMovimineto es la distancia que hay que recorrer
-                // para que se llame a cambiarPantalla()
-                when (event.action) {
-                    //cuando se toca el rv por primera vez
-                    MotionEvent.ACTION_DOWN -> {
-                        xInicio = eventX
-                        continuar = true
-                    }
-                    //cuando se mueve el dedo por la pantalla
-                    MotionEvent.ACTION_MOVE -> {
-                        //mueve el dedo a la derecha
-                        //hace lo mismo que tvUso
-                        if (eventX > (xInicio + logitudMovimineto)
-                                && continuar) {
-                            continuar = false
-                            pantalla = 0
-                            cambiarPantalla()
-                        }
-                        //mueve el dedo a la izquierda
-                        //hace lo mismo que tvDisp
-                        if (eventX < (xInicio - logitudMovimineto)
-                                && continuar) {
-                            continuar = false
-                            pantalla = 1
-                            cambiarPantalla()
-                        }
-                    }
-                    //cuando se levanta el dedo
-                    MotionEvent.ACTION_UP -> {
-                        continuar = false
-                    }
-                }
-                return true
-            }
-        })*/
     }
 
+    /*dispatchTouchEvent el evento se propaga al reves
+    * como lo de burbuja de SGE
+    * asi no influye con el scroll del rv
+    * */
+    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+        super.dispatchTouchEvent(event)
+
+        val eventX = event!!.x
+        val logitudMovimineto = 300
+        /*
+        * xInicio es un atributo de la clase que guarda
+        * la primera posicion que se pulsa
+        * eventX es la posicion de la pantalla que se pulsa
+        * logitudMovimineto es la distancia que hay que recorrer
+        * para que se llame a cambiarPantalla()
+        * continuar es una atributo de clase para que solo se
+        * llame al metodo cambiarPantalla una vez por movimiento
+        */
+        when (event.action) {
+            //cuando se toca el rv por primera vez
+            MotionEvent.ACTION_DOWN -> {
+                xInicio = eventX
+                continuar = true
+            }
+            //cuando se mueve el dedo por la pantalla
+            MotionEvent.ACTION_MOVE -> {
+                //mueve el dedo a la derecha
+                //hace lo mismo que tvUso
+                if (eventX > (xInicio + logitudMovimineto)
+                    && continuar) {
+                    continuar = false
+                    pantalla = 0
+                    cambiarPantalla()
+                }
+                //mueve el dedo a la izquierda
+                //hace lo mismo que tvDisp
+                if (eventX < (xInicio - logitudMovimineto)
+                    && continuar) {
+                    continuar = false
+                    pantalla = 1
+                    cambiarPantalla()
+                }
+            }
+            //cuando se levanta el dedo
+            MotionEvent.ACTION_UP -> {
+                continuar = false
+            }
+        }
+        return true
+    }
 
     /* 0 == USO Y 1 == DISPONIBLES*/
     private fun cambiarPantalla (){
@@ -110,14 +118,18 @@ class HomeActivity : AppCompatActivity() {
         if(usr!=null){ /* estamos en disponibles y cambiamos a la uso*/
             comprobarEliminarDisp(usr)
             if(pantalla==0){
-                tvUso.setTextColor(Color.GREEN)
-                tvDisp.setTextColor(Color.GRAY)
+                tvUso.setTextColor(Color.parseColor("#03DAC5"))
+                tvDisp.setTextColor(Color.parseColor("#f2f2f2"))
+                tvSubUso.visibility = View.VISIBLE
+                tvSubDisp.visibility = View.GONE
                 btnAddDisp.visibility = View.INVISIBLE
                 recuperarEnUso(usr)
             }
             if(pantalla==1){ /*estamos en uso y cambiamos a en disponibles */
-                tvUso.setTextColor(Color.GRAY)
-                tvDisp.setTextColor(Color.GREEN)
+                tvUso.setTextColor(Color.parseColor("#f2f2f2"))
+                tvDisp.setTextColor(Color.parseColor("#03DAC5"))
+                tvSubUso.visibility = View.GONE
+                tvSubDisp.visibility = View.VISIBLE
                 btnAddDisp.visibility = View.VISIBLE
                 recuperarDisponibles(usr)
             }
@@ -179,38 +191,49 @@ class HomeActivity : AppCompatActivity() {
                         val respuesta = response.body()
                         if(respuesta!=null) {
                             val array = UsoMasc.convertir(respuesta)
-                            //se cambia el atributo horasVida de los objetos
-                            //y se actualiza la base de datos
-                            val actualCal = Calendar.getInstance()
-                            actualCal.set(Calendar.ZONE_OFFSET,0)
-                            val actual = actualCal.timeInMillis
-                            for(i in array){
-                                if(i.final.timeInMillis<actual
-                                    && i.activa){
-                                    eliminarUso(i.id)
-                                    array.remove(i)
-                                    //si ha expirado se borra de la base de datos y del array
-                                }else{
-                                    if(i.activa){
+                            if(array.size>0) {
+                                primeraVez=false
+                                //se cambia el atributo horasVida de los objetos
+                                //y se actualiza la base de datos
+                                val actualCal = Calendar.getInstance()
+                                actualCal.set(Calendar.ZONE_OFFSET, 0)
+                                val actual = actualCal.timeInMillis
+                                for (i in array) {
+                                    if (i.final.timeInMillis < actual
+                                        && i.activa
+                                    ) {
+                                        eliminarUso(i.id)
+                                        array.remove(i)
+                                        //si ha expirado se borra de la base de datos y del array
+                                    } else {
+                                        if (i.activa) {
 
 
-                                        val final = i.final.timeInMillis
-                                        val diferencia = final.minus(actual)
-                                        //diferencia = diferencia.minus(3600000.toLong())
-                                        i.horasVida.timeInMillis = diferencia
+                                            val final = i.final.timeInMillis
+                                            val diferencia = final.minus(actual)
+                                            //diferencia = diferencia.minus(3600000.toLong())
+                                            i.horasVida.timeInMillis = diferencia
 
-                                        actualizarUso(
-                                            i.id,
-                                            ConvertirDb.getStringFromCalendar(i.inicio),
-                                            ConvertirDb.getStringFromBoolean(i.activa),
-                                            ConvertirDb.getStringFromCalendar(i.horasVida),
-                                            ConvertirDb.getStringFromCalendar(i.final),
-                                            i.lavados
-                                        )
+                                            actualizarUso(
+                                                i.id,
+                                                ConvertirDb.getStringFromCalendar(i.inicio),
+                                                ConvertirDb.getStringFromBoolean(i.activa),
+                                                ConvertirDb.getStringFromCalendar(i.horasVida),
+                                                ConvertirDb.getStringFromCalendar(i.final),
+                                                i.lavados
+                                            )
+                                        }
                                     }
                                 }
+                                actualizarRVUso(array)
+                            }else{
+                                /*si no hay en uso cambia a la pantalla disponibles*/
+                                if(primeraVez){
+                                    primeraVez = false
+                                    pantalla = 1
+                                    cambiarPantalla()
+                                }
                             }
-                            actualizarRVUso(array)
                         }
                     }
                 }

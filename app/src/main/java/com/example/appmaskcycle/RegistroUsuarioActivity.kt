@@ -17,6 +17,8 @@ class RegistroUsuarioActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro_usuario)
 
+        title = getString(R.string.nav_regis)
+
         btnRegis.setOnClickListener{
             validarForm()
         }

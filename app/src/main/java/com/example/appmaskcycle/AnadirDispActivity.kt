@@ -33,7 +33,7 @@ class AnadirDispActivity : AppCompatActivity() {
         setContentView(R.layout.activity_anadir_disp)
 
 
-        title = getString(R.string.titulo_anadir_disp)
+        title = getString(R.string.nav_anadir_disp)
 
         recuperarTiposDb()
 
@@ -51,7 +51,7 @@ class AnadirDispActivity : AppCompatActivity() {
         val integrator = IntentIntegrator(this)
 
         integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
-        integrator.setPrompt("Escanea el codigo qr del paquete de las mascarillas")
+        integrator.setPrompt("Escanea el codigo QR del paquete de las mascarillas")
         integrator.setBeepEnabled(true)
 
         integrator.initiateScan()
@@ -233,7 +233,7 @@ class AnadirDispActivity : AppCompatActivity() {
         if(mostrar){
             contenedor.visibility = View.VISIBLE
         }else{
-            contenedor.visibility = View.INVISIBLE
+            contenedor.visibility = View.GONE
         }
     }
 

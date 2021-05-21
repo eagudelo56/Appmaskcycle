@@ -9,12 +9,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHome"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="80dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/tvUso">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -28,28 +29,51 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_baseline_add_circle" />
+        app:srcCompat="@drawable/ic_baseline_add_circle"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/tvUso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="53dp"
-        android:layout_marginLeft="53dp"
-        android:layout_marginTop="31dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        android:padding="4dp"
         android:text="En uso"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/tvDisp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tvSubUso"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/tvUso"
+        app:layout_constraintEnd_toEndOf="@+id/tvUso"
+        app:layout_constraintStart_toStartOf="@+id/tvUso" />
+
+    <TextView
+        android:id="@+id/tvSubDisp"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDisp"
+        app:layout_constraintEnd_toEndOf="@+id/tvDisp"
+        app:layout_constraintStart_toStartOf="@+id/tvDisp" />
+
+    <TextView
         android:id="@+id/tvDisp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:layout_marginEnd="57dp"
-        android:layout_marginRight="57dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:padding="4dp"
         android:text="Disponibles"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvUso"
         app:layout_constraintTop_toTopOf="parent" />

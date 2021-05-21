@@ -1,11 +1,26 @@
 <resources>
     <string name="app_name">Appmaskcycle</string>
-    <string name="titulo_home">Home</string>
-    <string name="titulo_anadir_disp">Añadir mascarilla</string>
-    <string name="titulo_info_masc">Información mascarillas</string>
 
+
+    <!-- Titulos arriba -->
+    <string name="nav_home">Home</string>
+    <string name="nav_anadir_disp">Añadir mascarilla</string>
+    <string name="nav_info_masc">Información mascarillas</string>
+    <string name="nav_detalles">Detalles</string>
+    <string name="nav_regis">Crear cuenta</string>
+    <string name="nav_manual">Manual</string>
+    <string name="nav_ajustes_usr">Ajustes de usuario</string>
+
+    <!-- cadenas -->
+    <string name="login_usuario">Usuario</string>
+    <string name="login_contra">Contraseña</string>
+    <string name="login_contra2">Repetir Contraseña</string>
+    <string name="login_contraOld">Contraseña Actual</string>
+    <string name="login_contraNew">Contraseña Nueva</string>
+
+    <!-- Informacion mascarillas-->
     <string name="titulo_parrafo1">Mascarillas higiénicas</string>
-    <string name="cuerpo_parrafo1">Son una barrera para la transmisión de agentes infecciosos. Protegen desde dentro hacia afuera. Por lo tanto, si se acerca alguien que no lleva mascarilla y tiene Covid-19, la persona que sí lleva la mascarilla puede ser contagiada. Son, pues, mascarillas solidarias. Si todo el mundo las lleva, se evita la propagación del virus. Las hay reutilizables (UNE 0065-2020) y no reutilizables (UNE 0064-2020).</string>
+    <string name="cuerpo_parrafo1">Son una barrera para la transmisión de agentes infecciosos. Protegen desde dentro hacia afuera. Por lo tanto, si se acerca alguien que no lleva mascarilla y tiene Covid–19, la persona que sí lleva la mascarilla puede ser contagiada. Son, pues, mascarillas solidarias. Si todo el mundo las lleva, se evita la propagación del virus. Las hay reutilizables (UNE 0065–2020) y no reutilizables (UNE 0064–2020).</string>
     <string name="tiempo_parrafo1">Tiempo: 4 horas.</string>
 
     <string name="titulo_parrafo2">Mascarillas quirúrgicas</string>
@@ -23,4 +38,8 @@
     <string name="titulo_parrafo5">Mascarillas reutilizables</string>
     <string name="cuerpo_parrafo5">Pueden emplearse diversos tipos de tejidos: poliéster/algodón, algodón 100% o poliamida. Para obtener el certificado de cumplimiento de la norma UNE 0065, deben tener una eficacia de protección bacteriana superior al 90% y una respirabilidad inferior a 60 Pa/cm2. Estas mascarillas se pueden lavar con detergente normal y agua a temperatura entre 60º y 90º (ciclo normal de lavadora). </string>
     <string name="tiempo_parrafo5">Tiempo: depende de la mascarilla.</string>
+
+    <!-- Manual -->
+    <string name="manual_">eeeeee</string>
+
 </resources>

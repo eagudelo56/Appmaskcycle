@@ -24,29 +24,44 @@ import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AdaptadorUso (var content:Context, private var array:ArrayList<UsoMasc>): RecyclerView.Adapter<AdaptadorUso.ViewHolder>(){
+class AdaptadorUso (private var content:Context, private var array:ArrayList<UsoMasc>): RecyclerView.Adapter<AdaptadorUso.ViewHolder>(){
 
     class ViewHolder(view:View):RecyclerView.ViewHolder(view){
-        private val colorPausa = "#000000"
-        private val colorActiva = "#ffffff"
+        private val colorAmarillo = Color.parseColor("#999900")
+        private val colorNormal = Color.parseColor("#03DAC5")
+        private val colorLavar = Color.parseColor("#003d99")
+
+        private fun cambiarBtnPausa(){
+            itemView.btnUsoAccion.setBackgroundColor(colorAmarillo)
+            itemView.btnUsoAccion.setImageResource(R.drawable.ic_pause)
+        }
+
+        private fun cambiarBtnUsar(){
+            itemView.btnUsoAccion.setBackgroundColor(colorNormal)
+            itemView.btnUsoAccion.setImageResource(R.drawable.ic_usar)
+        }
+        private fun cambiarBtnLavar(){
+            itemView.btnUsoAccion.setBackgroundColor(colorLavar)
+            itemView.btnUsoAccion.setImageResource(R.drawable.ic_water)
+        }
+
         fun bind(mascarilla:UsoMasc,content: Context){
-            //guarda el objeto de la poscion actual
+            //mascarilla guarda el objeto de la poscion actual
             itemView.tvUsoNombre.text = mascarilla.nombre
-            itemView.tvUsoDuracion.text =
-                mascarilla.getHoraVformato()
+            itemView.tvUsoDuracion.text = mascarilla.getHoraVformato()
 
             if(mascarilla.activa){
-                itemView.btnUsoAccion.setBackgroundColor(Color.parseColor(colorPausa))
+                cambiarBtnPausa()
             }else{
-                itemView.btnUsoAccion.setBackgroundColor(Color.parseColor(colorActiva))
+                cambiarBtnUsar()
             }
 
             itemView.btnUsoAccion.setOnClickListener{
                 if(mascarilla.activa){
-                    itemView.btnUsoAccion.setBackgroundColor(Color.parseColor(colorActiva))
+                    cambiarBtnUsar()
                     pausarMascarilla(content,mascarilla)
                 }else{
-                    itemView.btnUsoAccion.setBackgroundColor(Color.parseColor(colorPausa))
+                    cambiarBtnPausa()
                     activarMascarilla(content,mascarilla)
                 }
             }
