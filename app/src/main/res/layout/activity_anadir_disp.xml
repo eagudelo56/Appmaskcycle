@@ -169,13 +169,13 @@
                 android:id="@+id/etComent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autofillHints="false"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:maxLength="30"
+                android:maxLength="15"
                 app:layout_constraintBottom_toBottomOf="@+id/tvComent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvComent"
-                android:autofillHints="false" />
+                app:layout_constraintStart_toEndOf="@+id/tvComent" />
 
             <ImageButton
                 android:id="@+id/btnQR"

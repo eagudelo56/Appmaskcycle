@@ -32,8 +32,10 @@ class DetallesDispActivity : AppCompatActivity() {
 
         val mascarilla = DispMasc(id,nombre!!,tipo!!,tInfo!!,lavados,duracion,stock,comentario!!)
 
+
         tvDetalleDispNombre.text = mascarilla.nombre
         tvDetalleDispTipo.text = mascarilla.tipo
+        tvDetalleDispTinfo.text = mascarilla.tInfo
         tvDetalleDispDuracion.text = mascarilla.duracion.toString()
         tvDetalleDispStock.text = mascarilla.stock.toString()
         tvDetalleDispLavados.text = mascarilla.lavados.toString()

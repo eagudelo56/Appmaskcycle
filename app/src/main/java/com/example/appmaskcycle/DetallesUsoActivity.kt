@@ -2,6 +2,7 @@ package com.example.appmaskcycle
 
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appmaskcycle.api.DataCodigoError
@@ -38,10 +39,18 @@ class DetallesUsoActivity : AppCompatActivity() {
         val mascarilla = UsoMasc(id,nombre!!,tipo!!,tInfo!!,
             inicioCal,activa,horasVidaCal,finalCal,lavados)
 
+
+
+        if(!mascarilla.activa){
+            labelFin.visibility= View.GONE
+            tvDetalleUsoFin.visibility= View.GONE
+        }
+
         tvDetalleUsoNombre.text = mascarilla.nombre
         tvDetalleUsoTipo.text = mascarilla.tipo
         tvDetalleUsoTinfo.text = mascarilla.tInfo
         tvDetalleUsoHorasVida.text = mascarilla.getHoraVformato()
+        tvDetalleUsoFin.text = mascarilla.getFinFormato()
         tvDetalleUsoLavados.text = mascarilla.lavados.toString()
 
         btnDetalleEliminar.setOnClickListener{

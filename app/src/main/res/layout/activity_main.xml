@@ -30,10 +30,10 @@
                 android:text="INGRESAR"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etContra" />
+                app:layout_constraintTop_toBottomOf="@+id/etPassNew1" />
 
             <EditText
-                android:id="@+id/etUser"
+                android:id="@+id/etPassOld"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="108dp"
@@ -41,6 +41,7 @@
                 android:drawableStart="@drawable/ic_user"
                 android:drawableLeft="@drawable/ic_user"
                 android:drawablePadding="6dp"
+                android:maxLength="20"
                 android:ems="10"
                 android:hint="@string/login_usuario"
                 android:inputType="textPersonName"
@@ -49,21 +50,22 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/etContra"
+                android:id="@+id/etPassNew1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
                 android:autofillHints="false"
+                android:maxLength="15"
                 android:drawableStart="@drawable/ic_key"
                 android:drawableLeft="@drawable/ic_key"
                 android:drawablePadding="6dp"
                 android:ems="10"
                 android:hint="@string/login_contra"
                 android:inputType="textPassword"
-                app:layout_constraintEnd_toEndOf="@+id/etUser"
+                app:layout_constraintEnd_toEndOf="@+id/etPassOld"
                 app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="@+id/etUser"
-                app:layout_constraintTop_toBottomOf="@+id/etUser" />
+                app:layout_constraintStart_toStartOf="@+id/etPassOld"
+                app:layout_constraintTop_toBottomOf="@+id/etPassOld" />
 
             <TextView
                 android:id="@+id/tvRegis"

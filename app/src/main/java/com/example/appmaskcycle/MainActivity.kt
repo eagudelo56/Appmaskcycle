@@ -33,16 +33,16 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        etUser.text.clear()
-        etContra.text.clear()
-        etUser.clearFocus()
-        etContra.clearFocus()
+        etPassOld.text.clear()
+        etPassNew1.text.clear()
+        etPassOld.clearFocus()
+        etPassNew1.clearFocus()
     }
 
 
     private fun comprobarFormulario () {
-        if (etUser.text.toString().isNotEmpty() && etContra.text.toString().isNotEmpty()){
-            comprobarLogin(etUser.text.toString(),etContra.text.toString())
+        if (etPassOld.text.toString().isNotEmpty() && etPassNew1.text.toString().isNotEmpty()){
+            comprobarLogin(etPassOld.text.toString(),etPassNew1.text.toString())
         }else{
             Toast.makeText(this,"Datos incompletos",Toast.LENGTH_LONG).show()
         }

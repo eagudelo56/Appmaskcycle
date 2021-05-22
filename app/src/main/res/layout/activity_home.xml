@@ -57,15 +57,6 @@
         app:layout_constraintStart_toStartOf="@+id/tvUso" />
 
     <TextView
-        android:id="@+id/tvSubDisp"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="@+id/tvDisp"
-        app:layout_constraintEnd_toEndOf="@+id/tvDisp"
-        app:layout_constraintStart_toStartOf="@+id/tvDisp" />
-
-    <TextView
         android:id="@+id/tvDisp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -79,4 +70,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvUso"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSubDisp"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDisp"
+        app:layout_constraintEnd_toEndOf="@+id/tvDisp"
+        app:layout_constraintStart_toStartOf="@+id/tvDisp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
