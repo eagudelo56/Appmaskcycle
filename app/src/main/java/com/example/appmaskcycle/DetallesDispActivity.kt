@@ -1,12 +1,14 @@
 package com.example.appmaskcycle
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appmaskcycle.api.DataCodigoError
 import com.example.appmaskcycle.clases.DispMasc
 import kotlinx.android.synthetic.main.activity_detalles_disp.*
+import kotlinx.android.synthetic.main.detalles_img.*
 import org.jetbrains.anko.doAsync
 import retrofit2.Call
 import retrofit2.Callback
@@ -32,6 +34,9 @@ class DetallesDispActivity : AppCompatActivity() {
 
         val mascarilla = DispMasc(id,nombre!!,tipo!!,tInfo!!,lavados,duracion,stock,comentario!!)
 
+        /*
+        ivDetalles.setBackgroundColor(Color.RED)
+        */
 
         tvDetalleDispNombre.text = mascarilla.nombre
         tvDetalleDispTipo.text = mascarilla.tipo
