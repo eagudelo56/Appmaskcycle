@@ -30,10 +30,10 @@
                 android:text="INGRESAR"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etPassNew1" />
+                app:layout_constraintTop_toBottomOf="@+id/etPass" />
 
             <EditText
-                android:id="@+id/etPassOld"
+                android:id="@+id/etUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="108dp"
@@ -50,7 +50,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/etPassNew1"
+                android:id="@+id/etPass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
@@ -62,10 +62,10 @@
                 android:ems="10"
                 android:hint="@string/login_contra"
                 android:inputType="textPassword"
-                app:layout_constraintEnd_toEndOf="@+id/etPassOld"
+                app:layout_constraintEnd_toEndOf="@+id/etUser"
                 app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="@+id/etPassOld"
-                app:layout_constraintTop_toBottomOf="@+id/etPassOld" />
+                app:layout_constraintStart_toStartOf="@+id/etUser"
+                app:layout_constraintTop_toBottomOf="@+id/etUser" />
 
             <TextView
                 android:id="@+id/tvRegis"

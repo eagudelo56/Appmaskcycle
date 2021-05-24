@@ -42,7 +42,7 @@ class Usuarios(var id:Int,var nombre:String,var contrasena:String) : InterfaceUs
 
     override fun updateUsuario(id:Int, nombre: String, contrasena: String): Call<DataCodigoError> {
         val sql = "update usuarios set nombre  = '$nombre' ," +
-                " contrasena = '$contrasena where id = $id;"
+                " contrasena = '$contrasena' where id = $id;"
         return c.execute(sql)
     }
 

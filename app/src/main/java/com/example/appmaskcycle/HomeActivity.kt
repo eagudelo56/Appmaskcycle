@@ -232,6 +232,8 @@ class HomeActivity : AppCompatActivity() {
                                     primeraVez = false
                                     pantalla = 1
                                     cambiarPantalla()
+                                }else{
+                                    actualizarRVUso(array)
                                 }
                             }
                         }

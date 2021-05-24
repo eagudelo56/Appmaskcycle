@@ -1,7 +1,9 @@
 package com.example.appmaskcycle
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.provider.AlarmClock
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +15,7 @@ import org.jetbrains.anko.doAsync
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class DetallesUsoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +77,7 @@ class DetallesUsoActivity : AppCompatActivity() {
                     if(respuesta!=null){
                         val codigo = respuesta.codigoError
                         if(codigo==1){
+                            quitarAlarma(mascarilla)
                             finish()
                             Toast.makeText(con, "Mascarilla eliminada correctamente", Toast.LENGTH_SHORT).show()
                         }
@@ -82,9 +86,23 @@ class DetallesUsoActivity : AppCompatActivity() {
                         }
                     }
                 }
-
             })
-
         }
     }
+
+    private fun quitarAlarma(mascarilla:UsoMasc){
+        val intentAlarm = Intent(AlarmClock.ACTION_DISMISS_ALARM)
+        val fin = mascarilla.final
+        val adelanto = -10
+        fin.add(Calendar.MINUTE, adelanto)
+
+        val horas = fin.get(Calendar.HOUR_OF_DAY)
+        val min = fin.get(Calendar.MINUTE)
+
+        intentAlarm.putExtra(AlarmClock.EXTRA_ALARM_SEARCH_MODE, AlarmClock.ALARM_SEARCH_MODE_TIME)
+        intentAlarm.putExtra(AlarmClock.EXTRA_HOUR,horas)
+        intentAlarm.putExtra(AlarmClock.EXTRA_MINUTES,min)
+        startActivity(intentAlarm)
+    }
+
 }
