@@ -39,7 +39,7 @@ class ConvertirDb {
         }
 
         fun getStringFromBoolean(bool:Boolean) : String{
-            var str = "0"
+            var str = "0" //* 1 es activa y 0 es en pausa o inactiva*//
             if(bool){
                 str = "1"
             }

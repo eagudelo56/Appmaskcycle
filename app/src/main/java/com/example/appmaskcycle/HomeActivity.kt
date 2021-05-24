@@ -202,8 +202,15 @@ class HomeActivity : AppCompatActivity() {
                                     if (i.final.timeInMillis < actual
                                         && i.activa
                                     ) {
-                                        eliminarUso(i.id)
-                                        array.remove(i)
+                                        if(i.lavados>0){
+                                            calculoLavados(i)
+
+
+                                        }else{
+                                            eliminarUso(i.id)
+                                            array.remove(i)
+                                        }
+
                                         //si ha expirado se borra de la base de datos y del array
                                     } else {
                                         if (i.activa) {
@@ -405,6 +412,49 @@ class HomeActivity : AppCompatActivity() {
                 }
             )
         }
+    }
+
+    //método calculo lavados
+    private fun calculoLavados (mascarilla:UsoMasc){
+        val cont = this
+        doAsync {
+            val objectoDAO = FactoriaDispMasc.getDispMascDao()
+            val llamada =objectoDAO.getDispMascByUsuario(2)
+            llamada.enqueue(
+                object : Callback<List<DataDispMasc>> {
+                    override fun onFailure(call: Call<List<DataDispMasc>>, t: Throwable) {
+                        Toast.makeText(cont,"bien eli uso", Toast.LENGTH_LONG).show()
+                    }
+
+                    override fun onResponse(
+                        call: Call<List<DataDispMasc>>,
+                        response: Response<List<DataDispMasc>>
+                    ) {
+                        val respuesta = response.body()
+                        if(respuesta!= null){
+                            val array = DispMasc.convertir(respuesta)
+                            if(array.size==1){
+                                val i = array[0]
+                                mascarilla.lavados--
+                                mascarilla.activa= false
+                                actualizarUso(
+                                    i.id,
+                                    ConvertirDb.getStringFromCalendar(mascarilla.inicio),
+                                    ConvertirDb.getStringFromBoolean(mascarilla.activa),
+                                    ConvertirDb.getStringFromCalendar(mascarilla.horasVida),
+                                    ConvertirDb.getStringFromCalendar(mascarilla.final),
+                                    i.lavados
+                                )
+
+                            }
+                        }
+                    }
+
+
+                }
+            )
+        }
+
     }
 
     //se implementa el menu del documento xml a la actividad
