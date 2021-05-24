@@ -100,7 +100,7 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
                             if(respuesta!=null){
                                 val codigo = respuesta.codigoError
                                 if(codigo == 1){
-                                    Toast.makeText(cont,"bien", Toast.LENGTH_LONG).show()
+                                    Toast.makeText(cont,"bien Eli", Toast.LENGTH_LONG).show()
                                 }else{
                                     Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
                                 }
@@ -136,7 +136,7 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
                             if(respuesta!=null){
                                 val codigo = respuesta.codigoError
                                 if(codigo == 1){
-                                    Toast.makeText(cont,"bien", Toast.LENGTH_LONG).show()
+                                    Toast.makeText(cont,"bien actua", Toast.LENGTH_LONG).show()
                                     /*
                                     * se termina el home activity y se vuelve a lanzar
                                     * para refrescar los datos
@@ -164,16 +164,9 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
 
         private fun quitarAlarma(mascarilla:UsoMasc,content: Context){
             val intentAlarm = Intent(AlarmClock.ACTION_DISMISS_ALARM)
-            val fin = mascarilla.final
-            val adelanto = -10
-            fin.add(Calendar.MINUTE, adelanto)
 
-            val horas = fin.get(Calendar.HOUR_OF_DAY)
-            val min = fin.get(Calendar.MINUTE)
-
-            intentAlarm.putExtra(AlarmClock.EXTRA_ALARM_SEARCH_MODE, AlarmClock.ALARM_SEARCH_MODE_TIME)
-            intentAlarm.putExtra(AlarmClock.EXTRA_HOUR,horas)
-            intentAlarm.putExtra(AlarmClock.EXTRA_MINUTES,min)
+            intentAlarm.putExtra(AlarmClock.EXTRA_ALARM_SEARCH_MODE, AlarmClock.ALARM_SEARCH_MODE_LABEL)
+            intentAlarm.putExtra(AlarmClock.EXTRA_MESSAGE,"${mascarilla.nombre}_${mascarilla.id}")
             content.startActivity(intentAlarm)
         }
 
@@ -186,7 +179,8 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
             val min = fin.get(Calendar.MINUTE)
 
             val intentAlarm = Intent(AlarmClock.ACTION_SET_ALARM)
-            intentAlarm.putExtra(AlarmClock.EXTRA_MESSAGE,mascarilla.nombre)
+            intentAlarm.putExtra(AlarmClock.EXTRA_MESSAGE,
+                "${mascarilla.nombre}_${mascarilla.id}")
             intentAlarm.putExtra(AlarmClock.EXTRA_HOUR,horas)
             intentAlarm.putExtra(AlarmClock.EXTRA_MINUTES,min)
             intentAlarm.putExtra(
@@ -210,7 +204,7 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
                 var diferencia = final.minus(actual)
                 //diferencia = diferencia.minus(3600000.toLong())
 
-                diferencia = diferencia.plus(600000.toLong())
+                //diferencia = diferencia.plus(600000.toLong())
                 mascarilla.horasVida.timeInMillis = diferencia
                 actualizarUso(
                     cont,
@@ -229,13 +223,13 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
         private fun activarMascarilla(cont: Context,mascarilla: UsoMasc){
             mascarilla.activa = true
             val inicio = Calendar.getInstance()
-            inicio.set(Calendar.ZONE_OFFSET,0)
+
             val final = Calendar.getInstance()
-            final.set(Calendar.ZONE_OFFSET,0)
+
             val horasVida = mascarilla.horasVida.get(Calendar.HOUR_OF_DAY)
             val minutosVida = mascarilla.horasVida.get(Calendar.MINUTE)
-            final.set(Calendar.HOUR_OF_DAY,horasVida)
-            final.set(Calendar.MINUTE,minutosVida)
+            final.add(Calendar.HOUR_OF_DAY,horasVida)
+            final.add(Calendar.MINUTE,minutosVida)
             ponerAlarma(cont,mascarilla)
             actualizarUso(
                 cont,
@@ -246,7 +240,6 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
                 ConvertirDb.getStringFromCalendar(final),
                 mascarilla.lavados
             )
-            cambiarBtnUsar()
         }
 
     }

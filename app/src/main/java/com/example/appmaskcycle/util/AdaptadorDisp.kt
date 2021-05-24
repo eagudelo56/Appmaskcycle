@@ -180,7 +180,7 @@ class AdaptadorDisp(private var content:Context, private var array:ArrayList<Dis
             val min = fin.get(Calendar.MINUTE)
 
             val intentAlarm = Intent(AlarmClock.ACTION_SET_ALARM)
-            intentAlarm.putExtra(AlarmClock.EXTRA_MESSAGE,mascarilla.nombre)
+            intentAlarm.putExtra(AlarmClock.EXTRA_MESSAGE,"${mascarilla.nombre}_${mascarilla.id}")
             intentAlarm.putExtra(AlarmClock.EXTRA_HOUR,horas)
             intentAlarm.putExtra(AlarmClock.EXTRA_MINUTES,min)
             intentAlarm.putExtra(

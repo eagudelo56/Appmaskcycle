@@ -69,7 +69,7 @@ class HomeActivity : AppCompatActivity() {
         super.dispatchTouchEvent(event)
 
         val eventX = event!!.x
-        val logitudMovimineto = 150
+        val logitudMovimineto = 200
         /*
         * xInicio es un atributo de la clase que guarda
         * la primera posicion que se pulsa
@@ -269,7 +269,7 @@ class HomeActivity : AppCompatActivity() {
                         if(respuesta!=null){
                             val codigo = respuesta.codigoError
                             if(codigo == 1){
-                                //Toast.makeText(cont,"bien", Toast.LENGTH_LONG).show()
+                                //Toast.makeText(cont,"bien actua home", Toast.LENGTH_LONG).show()
                             }else{
                                 Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
                             }
@@ -364,7 +364,7 @@ class HomeActivity : AppCompatActivity() {
                         if(respuesta!=null){
                             val codigo = respuesta.codigoError
                             if(codigo == 1){
-                                Toast.makeText(cont,"bien", Toast.LENGTH_LONG).show()
+                                Toast.makeText(cont,"bien eli home", Toast.LENGTH_LONG).show()
                             }else{
                                 Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
                             }
@@ -395,7 +395,7 @@ class HomeActivity : AppCompatActivity() {
                         if(respuesta!=null){
                             val codigo = respuesta.codigoError
                             if(codigo == 1){
-                                Toast.makeText(cont,"bien", Toast.LENGTH_LONG).show()
+                                Toast.makeText(cont,"bien eli uso", Toast.LENGTH_LONG).show()
                             }else{
                                 Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
                             }
