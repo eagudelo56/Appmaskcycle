@@ -206,14 +206,12 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
                 mascarilla.activa = false
                 quitarAlarma(mascarilla,cont)
 
-
                 val final = mascarilla.final.timeInMillis
                 var diferencia = final.minus(actual)
                 //diferencia = diferencia.minus(3600000.toLong())
+
                 diferencia = diferencia.plus(600000.toLong())
                 mascarilla.horasVida.timeInMillis = diferencia
-
-
                 actualizarUso(
                     cont,
                     mascarilla.id,
@@ -230,7 +228,25 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
 
         private fun activarMascarilla(cont: Context,mascarilla: UsoMasc){
             mascarilla.activa = true
+            val inicio = Calendar.getInstance()
+            inicio.set(Calendar.ZONE_OFFSET,0)
+            val final = Calendar.getInstance()
+            final.set(Calendar.ZONE_OFFSET,0)
+            val horasVida = mascarilla.horasVida.get(Calendar.HOUR_OF_DAY)
+            val minutosVida = mascarilla.horasVida.get(Calendar.MINUTE)
+            final.set(Calendar.HOUR_OF_DAY,horasVida)
+            final.set(Calendar.MINUTE,minutosVida)
             ponerAlarma(cont,mascarilla)
+            actualizarUso(
+                cont,
+                mascarilla.id,
+                ConvertirDb.getStringFromCalendar(inicio),
+                ConvertirDb.getStringFromBoolean(mascarilla.activa),
+                ConvertirDb.getStringFromCalendar(mascarilla.horasVida),
+                ConvertirDb.getStringFromCalendar(final),
+                mascarilla.lavados
+            )
+            cambiarBtnUsar()
         }
 
     }
