@@ -12,7 +12,7 @@ interface InterfaceUsoMasc {
     fun insertarUsoMasc(idPack:Int,inicio:String,activa:String,horasVida:String,
     final:String,lavados:Int): Call<DataCodigoError>
     fun updateUsoMasc (id:Int, inicio:String,activa:String,horasVida:String,
-    final:String,lavados:Int): Call<DataCodigoError>
+    final:String,lavados:Int, lavar:String): Call<DataCodigoError>
     fun deleteUsoMasc (id:Int): Call<DataCodigoError>
 
 }

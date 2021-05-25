@@ -40,7 +40,7 @@ class DetallesUsoActivity : AppCompatActivity() {
         val horasVidaCal = ConvertirDb.getCalendarFromString(horasVida!!)
         val finalCal = ConvertirDb.getCalendarFromString(final!!)
         val mascarilla = UsoMasc(id,nombre!!,tipo!!,tInfo!!,
-            inicioCal,activa,horasVidaCal,finalCal,lavados)
+            inicioCal,activa,horasVidaCal,finalCal,lavados, false)
 
 
 

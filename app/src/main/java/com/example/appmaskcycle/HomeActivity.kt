@@ -227,7 +227,7 @@ class HomeActivity : AppCompatActivity() {
                                                 ConvertirDb.getStringFromBoolean(i.activa),
                                                 ConvertirDb.getStringFromCalendar(i.horasVida),
                                                 ConvertirDb.getStringFromCalendar(i.final),
-                                                i.lavados
+                                                i.lavados, "0"
                                             )
                                         }
                                     }
@@ -255,13 +255,13 @@ class HomeActivity : AppCompatActivity() {
                                activa: String,
                                horasVida: String,
                                final: String,
-                               lavados: Int) {
+                               lavados: Int, lavar:String) {
         val cont = this
         doAsync {
             val objDao = FactoriaUsoMasc.getUsoMascDao()
             val llamada = objDao.updateUsoMasc(id, inicio,
                 activa, horasVida,
-                final, lavados)
+                final, lavados, lavar)
             llamada.enqueue(
                 object : Callback<DataCodigoError> {
                     override fun onFailure(call: Call<DataCodigoError>, t: Throwable) {
@@ -419,7 +419,7 @@ class HomeActivity : AppCompatActivity() {
         val cont = this
         doAsync {
             val objectoDAO = FactoriaDispMasc.getDispMascDao()
-            val llamada =objectoDAO.getDispMascByUsuario(2)
+            val llamada =objectoDAO.getDispMascPorIdUso(mascarilla.id)
             llamada.enqueue(
                 object : Callback<List<DataDispMasc>> {
                     override fun onFailure(call: Call<List<DataDispMasc>>, t: Throwable) {
@@ -434,28 +434,34 @@ class HomeActivity : AppCompatActivity() {
                         if(respuesta!= null){
                             val array = DispMasc.convertir(respuesta)
                             if(array.size==1){
-                                val i = array[0]
+                                val pack = array[0]
                                 mascarilla.lavados--
                                 mascarilla.activa= false
+                                mascarilla.lavar = true
+
+                                val auxHorasVida = Calendar.getInstance()
+                                auxHorasVida.set(Calendar.HOUR_OF_DAY, pack.duracion)
+                                auxHorasVida.set(Calendar.MINUTE, 0)
+                                auxHorasVida.set(Calendar.SECOND, 0)
+
                                 actualizarUso(
-                                    i.id,
+                                    pack.id,
                                     ConvertirDb.getStringFromCalendar(mascarilla.inicio),
                                     ConvertirDb.getStringFromBoolean(mascarilla.activa),
-                                    ConvertirDb.getStringFromCalendar(mascarilla.horasVida),
+                                    ConvertirDb.getStringFromCalendar(auxHorasVida),
                                     ConvertirDb.getStringFromCalendar(mascarilla.final),
-                                    i.lavados
+                                    pack.lavados,
+                                    ConvertirDb.getStringFromBoolean(mascarilla.lavar)
                                 )
-
                             }
                         }
                     }
-
-
                 }
             )
         }
 
     }
+
 
     //se implementa el menu del documento xml a la actividad
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

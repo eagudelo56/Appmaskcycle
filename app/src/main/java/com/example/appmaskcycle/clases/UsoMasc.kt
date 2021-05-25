@@ -11,7 +11,7 @@ import kotlin.collections.ArrayList
 class UsoMasc(var id:Int, var nombre:String, var tipo:String,
               var tInfo:String, var inicio :Calendar,
               var activa : Boolean ,var horasVida:Calendar,
-              var final:Calendar, var lavados:Int) : InterfaceUsoMasc {
+              var final:Calendar, var lavados:Int, var lavar:Boolean) : InterfaceUsoMasc {
 
     private val c = Conexion()
 
@@ -51,10 +51,10 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
                 val inic = ConvertirDb.getCalendarFromString(lista[i].inicio)
                 val horasV = ConvertirDb.getCalendarFromString(lista[i].horasVida)
                 val fin = ConvertirDb.getCalendarFromString(lista[i].final)
-
+                val lavar = ConvertirDb.getBooleanFromString(lista[i].lavar)
                 val aux = UsoMasc (lista[i].id, lista[i].nombre, lista[i].tipo,
                     lista[i].tInfo, inic, actv, horasV,
-                    fin, lista[i].lavados)
+                    fin, lista[i].lavados, lavar)
                 arrayL.add(aux)
             }
 
@@ -66,7 +66,7 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
 
     override fun getUsoMascByUsuario(usr: Int): Call<List<DataUsoMasc>> {
         val sql = "select u.id, d.nombre,t.nombre_t 'tipo', t.info_extra 't_info', " +
-                "u.inicio,u.activa,u.horas_vida,u.final,u.lavados " +
+                "u.inicio,u.activa,u.horas_vida,u.final,u.lavados, u.lavar " +
                 "from uso_masc u " +
                 "join (disp_masc d, tipos_masc t) " +
                 "on (u.id_pack = d.id and d.tipo = t.id ) " +
@@ -77,7 +77,7 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
 
     override fun getUsoMascPorId(id: Int): Call<List<DataUsoMasc>> {
         val sql = "select u.id, d.nombre,t.nombre_t 'tipo', t.info_extra 't_info', " +
-                "u.inicio,u.activa,u.horas_vida,u.final,u.lavados " +
+                "u.inicio,u.activa,u.horas_vida,u.final,u.lavados, u.lavar " +
                 "from uso_masc u " +
                 "join (disp_masc d, tipos_masc t) " +
                 "on (u.id_pack = d.id and d.tipo = t.id ) " +
@@ -87,7 +87,7 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
 
     override fun getUsoMascPorIdPack(idPack: Int): Call<List<DataUsoMasc>> {
         val sql = "select u.id, d.nombre,t.nombre_t 'tipo', t.info_extra 't_info', " +
-                "u.inicio,u.activa,u.horas_vida,u.final,u.lavados " +
+                "u.inicio,u.activa,u.horas_vida,u.final,u.lavados, u.lavar " +
                 "from uso_masc u " +
                 "join (disp_masc d, tipos_masc t) " +
                 "on (u.id_pack = d.id and d.tipo = t.id ) " +
@@ -97,7 +97,7 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
 
     override fun getUltimaUso(): Call<List<DataUsoMasc>> {
         val sql = "select u.id, d.nombre,t.nombre_t 'tipo', t.info_extra 't_info', " +
-                "u.inicio,u.activa,u.horas_vida,u.final,u.lavados " +
+                "u.inicio,u.activa,u.horas_vida,u.final,u.lavados, u.lavar " +
                 "from uso_masc u " +
                 "join (disp_masc d, tipos_masc t) " +
                 "on (u.id_pack = d.id and d.tipo = t.id ) " +
@@ -114,9 +114,9 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
         lavados: Int
     ): Call<DataCodigoError> {
         val sql = "insert into uso_masc " +
-                "(id_pack,inicio,activa,horas_vida,final,lavados) " +
+                "(id_pack,inicio,activa,horas_vida,final,lavados,lavar) " +
                 "VALUES ($idPack, '$inicio', '$activa', '$horasVida', " +
-                "'$final', $lavados); "
+                "'$final', $lavados,'0'); "
         return c.execute(sql)
     }
 
@@ -126,11 +126,12 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
         activa: String,
         horasVida: String,
         final: String,
-        lavados: Int
+        lavados: Int,
+        lavar:String
     ): Call<DataCodigoError> {
         val sql = "update uso_masc set" +
                 " inicio = '$inicio', activa = '$activa', horas_vida = '$horasVida', " +
-                " final = '$final' , lavados = $lavados where id = $id;"
+                " final = '$final' , lavados = $lavados , lavar = $lavar where id = $id;"
         return c.execute(sql)
     }
 

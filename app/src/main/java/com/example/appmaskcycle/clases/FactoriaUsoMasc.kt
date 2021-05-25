@@ -7,7 +7,7 @@ class FactoriaUsoMasc {
         fun getUsoMascDao() : UsoMasc{
             return UsoMasc (-1,"","","",
                 Calendar.getInstance(),false,
-                Calendar.getInstance(),Calendar.getInstance(),-1)
+                Calendar.getInstance(),Calendar.getInstance(),-1, false)
         }
     }
 }

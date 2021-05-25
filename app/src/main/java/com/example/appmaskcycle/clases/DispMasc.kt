@@ -48,6 +48,16 @@ class DispMasc(var id:Int, var nombre:String,var tipo:String,
         return  c.executeQueryDispMasc(sql)
     }
 
+    override fun getDispMascPorIdUso(id: Int): Call<List<DataDispMasc>> {
+        val sql = "select d.id,d.nombre,t.nombre_t 'tipo',t.info_extra 't_info'," +
+                "d.lavados,d.duracion,d.stock,d.comentario " +
+                "from disp_masc d " +
+                "join (tipos_masc t, uso_masc u) " +
+                "on (d.tipo = t.id and u.id_pack=d.id) " +
+                "where u.id=$id;"
+        return  c.executeQueryDispMasc(sql)
+    }
+
     override fun insertarDispMasc(
         nombre: String,
         tipo: Int,

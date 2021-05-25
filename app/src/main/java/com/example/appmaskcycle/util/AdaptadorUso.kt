@@ -56,13 +56,32 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
                 cambiarBtnUsar()
             }
 
+            if(mascarilla.lavar){
+                cambiarBtnLavar()
+            }
+
             itemView.btnUsoAccion.setOnClickListener{
-                if(mascarilla.activa){
+                if(mascarilla.lavar){
+                    mascarilla.lavar = false
                     cambiarBtnUsar()
-                    pausarMascarilla(content,mascarilla)
+                    actualizarUso(
+                        content,
+                        mascarilla.id,
+                        ConvertirDb.getStringFromCalendar(mascarilla.inicio),
+                        ConvertirDb.getStringFromBoolean(mascarilla.activa),
+                        ConvertirDb.getStringFromCalendar(mascarilla.horasVida),
+                        ConvertirDb.getStringFromCalendar(mascarilla.final),
+                        mascarilla.lavados,
+                        ConvertirDb.getStringFromBoolean(mascarilla.lavar)
+                    )
                 }else{
-                    cambiarBtnPausa()
-                    activarMascarilla(content,mascarilla)
+                    if(mascarilla.activa){
+                        cambiarBtnUsar()
+                        pausarMascarilla(content,mascarilla)
+                    }else{
+                        cambiarBtnPausa()
+                        activarMascarilla(content,mascarilla)
+                    }
                 }
             }
 
@@ -116,12 +135,12 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
                                    activa: String,
                                    horasVida: String,
                                    final: String,
-                                   lavados: Int) {
+                                   lavados: Int, lavar:String) {
             doAsync {
                 val objDao = FactoriaUsoMasc.getUsoMascDao()
                 val llamada = objDao.updateUsoMasc(id, inicio,
                     activa, horasVida,
-                    final, lavados)
+                    final, lavados, lavar)
                 llamada.enqueue(
                     object : Callback<DataCodigoError> {
                         override fun onFailure(call: Call<DataCodigoError>, t: Throwable) {
@@ -213,7 +232,7 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
                     ConvertirDb.getStringFromBoolean(mascarilla.activa),
                     ConvertirDb.getStringFromCalendar(mascarilla.horasVida),
                     ConvertirDb.getStringFromCalendar(mascarilla.final),
-                    mascarilla.lavados
+                    mascarilla.lavados, "0"
                 )
             }else{
                 eliminarUso(mascarilla.id, cont)
@@ -238,7 +257,7 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
                 ConvertirDb.getStringFromBoolean(mascarilla.activa),
                 ConvertirDb.getStringFromCalendar(mascarilla.horasVida),
                 ConvertirDb.getStringFromCalendar(final),
-                mascarilla.lavados
+                mascarilla.lavados, "0"
             )
             mascarilla.final = final
             mascarilla.inicio = inicio
