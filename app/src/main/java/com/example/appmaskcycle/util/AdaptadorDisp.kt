@@ -13,6 +13,7 @@ import com.example.appmaskcycle.DetallesDispActivity
 import com.example.appmaskcycle.HomeActivity
 import com.example.appmaskcycle.R
 import com.example.appmaskcycle.api.DataCodigoError
+import com.example.appmaskcycle.api.DataUsoMasc
 import com.example.appmaskcycle.clases.DispMasc
 import com.example.appmaskcycle.clases.FactoriaUsoMasc
 import com.example.appmaskcycle.clases.UsoMasc
@@ -34,6 +35,9 @@ class AdaptadorDisp(private var content:Context, private var array:ArrayList<Dis
 
             itemView.btnUsoAccion.setOnClickListener{
                 if (mascarilla.stock > 0) {
+
+
+
                     val auxHorasVida = Calendar.getInstance()
                     auxHorasVida.set(Calendar.HOUR_OF_DAY, mascarilla.duracion)
                     auxHorasVida.set(Calendar.MINUTE, 0)
@@ -53,9 +57,8 @@ class AdaptadorDisp(private var content:Context, private var array:ArrayList<Dis
                     val mascUso = FactoriaUsoMasc.getUsoMascDao()
                     mascUso.nombre = mascarilla.nombre
                     mascUso.final = auxFinal
+                    mascUso.id++
 
-
-                    ponerAlarma(cont, mascUso)
 
                     insertarUsoDb(
                         cont,
@@ -67,6 +70,9 @@ class AdaptadorDisp(private var content:Context, private var array:ArrayList<Dis
                         lavados,
                         mascarilla
                     )
+
+
+
                 }
             }
 
@@ -84,6 +90,34 @@ class AdaptadorDisp(private var content:Context, private var array:ArrayList<Dis
                 cont.startActivity(intent)
             }
         }
+
+
+        private fun recuperarUltimaUso(mascarilla: DispMasc, cont : Context) {
+            doAsync {
+                val objDAO = FactoriaUsoMasc.getUsoMascDao()
+                val llamada = objDAO.getUltimaUso()
+                llamada.enqueue(
+                    object : Callback<List<DataUsoMasc>>{
+                        override fun onFailure(call: Call<List<DataUsoMasc>>, t: Throwable) {
+                            Toast.makeText(cont,t.localizedMessage, Toast.LENGTH_LONG).show()
+                        }
+
+                        override fun onResponse(
+                            call: Call<List<DataUsoMasc>>,
+                            response: Response<List<DataUsoMasc>>
+                        ) {
+                            val respuesta = response.body()
+                            if(respuesta!=null){
+                                val ultimaUso = UsoMasc.convertir(respuesta)[0]
+                                ponerAlarma(cont, ultimaUso)
+                            }
+                        }
+
+                    }
+                )
+            }
+        }
+
 
         private fun updateStock(cont : Context,mascarilla: DispMasc) {
             if (mascarilla.stock > 0){
@@ -159,6 +193,7 @@ class AdaptadorDisp(private var content:Context, private var array:ArrayList<Dis
                                 if(codigo == 1){
                                     updateStock(cont,mascarilla)
                                     Toast.makeText(cont,"bien", Toast.LENGTH_LONG).show()
+                                    recuperarUltimaUso(mascarilla, cont)
                                 }else{
                                     Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
                                 }

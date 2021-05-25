@@ -69,7 +69,7 @@ class HomeActivity : AppCompatActivity() {
         super.dispatchTouchEvent(event)
 
         val eventX = event!!.x
-        val logitudMovimineto = 200
+        val logitudMovimineto = 300
         /*
         * xInicio es un atributo de la clase que guarda
         * la primera posicion que se pulsa

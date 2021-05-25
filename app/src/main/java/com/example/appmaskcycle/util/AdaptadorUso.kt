@@ -240,6 +240,8 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
                 ConvertirDb.getStringFromCalendar(final),
                 mascarilla.lavados
             )
+            mascarilla.final = final
+            mascarilla.inicio = inicio
             ponerAlarma(cont,mascarilla)
         }
 

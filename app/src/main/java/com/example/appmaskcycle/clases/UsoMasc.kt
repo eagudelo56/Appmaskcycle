@@ -95,6 +95,16 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
         return c.executeQueryUsoMasc(sql)
     }
 
+    override fun getUltimaUso(): Call<List<DataUsoMasc>> {
+        val sql = "select u.id, d.nombre,t.nombre_t 'tipo', t.info_extra 't_info', " +
+                "u.inicio,u.activa,u.horas_vida,u.final,u.lavados " +
+                "from uso_masc u " +
+                "join (disp_masc d, tipos_masc t) " +
+                "on (u.id_pack = d.id and d.tipo = t.id ) " +
+                "where u.id=(select max(id) from uso_masc)"
+        return c.executeQueryUsoMasc(sql)
+    }
+
     override fun insertarUsoMasc(
         idPack: Int,
         inicio: String,
