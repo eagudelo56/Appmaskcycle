@@ -230,7 +230,7 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
             val minutosVida = mascarilla.horasVida.get(Calendar.MINUTE)
             final.add(Calendar.HOUR_OF_DAY,horasVida)
             final.add(Calendar.MINUTE,minutosVida)
-            ponerAlarma(cont,mascarilla)
+            //ponerAlarma(cont,mascarilla)
             actualizarUso(
                 cont,
                 mascarilla.id,
@@ -240,6 +240,7 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
                 ConvertirDb.getStringFromCalendar(final),
                 mascarilla.lavados
             )
+            ponerAlarma(cont,mascarilla)
         }
 
     }
