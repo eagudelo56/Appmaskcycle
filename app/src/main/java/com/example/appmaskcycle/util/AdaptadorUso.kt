@@ -62,6 +62,7 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
 
             itemView.btnUsoAccion.setOnClickListener{
                 if(mascarilla.lavar){
+                    mascarilla.activa = false
                     mascarilla.lavar = false
                     cambiarBtnUsar()
                     actualizarUso(
