@@ -207,8 +207,9 @@ class HomeActivity : AppCompatActivity() {
 
 
                                         }else{
+
                                             eliminarUso(i.id)
-                                            array.remove(i)
+                                            cambiarPantalla()
                                         }
 
                                         //si ha expirado se borra de la base de datos y del array
@@ -423,7 +424,7 @@ class HomeActivity : AppCompatActivity() {
             llamada.enqueue(
                 object : Callback<List<DataDispMasc>> {
                     override fun onFailure(call: Call<List<DataDispMasc>>, t: Throwable) {
-                        Toast.makeText(cont,"bien eli uso", Toast.LENGTH_LONG).show()
+                        Toast.makeText(cont,"error conexion lavados", Toast.LENGTH_LONG).show()
                     }
 
                     override fun onResponse(
@@ -445,14 +446,16 @@ class HomeActivity : AppCompatActivity() {
                                 auxHorasVida.set(Calendar.SECOND, 0)
 
                                 actualizarUso(
-                                    pack.id,
+                                    mascarilla.id,
                                     ConvertirDb.getStringFromCalendar(mascarilla.inicio),
                                     ConvertirDb.getStringFromBoolean(mascarilla.activa),
                                     ConvertirDb.getStringFromCalendar(auxHorasVida),
                                     ConvertirDb.getStringFromCalendar(mascarilla.final),
-                                    pack.lavados,
+                                    mascarilla.lavados,
                                     ConvertirDb.getStringFromBoolean(mascarilla.lavar)
                                 )
+
+                                cambiarPantalla()
                             }
                         }
                     }

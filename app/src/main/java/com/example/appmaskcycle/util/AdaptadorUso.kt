@@ -248,8 +248,10 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
 
             val horasVida = mascarilla.horasVida.get(Calendar.HOUR_OF_DAY)
             val minutosVida = mascarilla.horasVida.get(Calendar.MINUTE)
+            val segundosVida = mascarilla.horasVida.get(Calendar.SECOND)
             final.add(Calendar.HOUR_OF_DAY,horasVida)
             final.add(Calendar.MINUTE,minutosVida)
+            final.add(Calendar.SECOND,segundosVida)
             //ponerAlarma(cont,mascarilla)
             actualizarUso(
                 cont,

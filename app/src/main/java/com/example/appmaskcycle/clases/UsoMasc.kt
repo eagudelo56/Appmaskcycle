@@ -131,7 +131,7 @@ class UsoMasc(var id:Int, var nombre:String, var tipo:String,
     ): Call<DataCodigoError> {
         val sql = "update uso_masc set" +
                 " inicio = '$inicio', activa = '$activa', horas_vida = '$horasVida', " +
-                " final = '$final' , lavados = $lavados , lavar = $lavar where id = $id;"
+                " final = '$final' , lavados = $lavados , lavar = '$lavar' where id = $id;"
         return c.execute(sql)
     }
 
