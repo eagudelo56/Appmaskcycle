@@ -196,7 +196,7 @@ class HomeActivity : AppCompatActivity() {
                                 //se cambia el atributo horasVida de los objetos
                                 //y se actualiza la base de datos
                                 val actualCal = Calendar.getInstance()
-                                actualCal.set(Calendar.ZONE_OFFSET, 0)
+                                //actualCal.set(Calendar.ZONE_OFFSET, 0)
                                 val actual = actualCal.timeInMillis
                                 for (i in array) {
                                     if (i.final.timeInMillis < actual
@@ -218,6 +218,10 @@ class HomeActivity : AppCompatActivity() {
 
 
                                             val final = i.final.timeInMillis
+
+                                            actualCal.set(Calendar.ZONE_OFFSET, 0)
+                                            val actual = actualCal.timeInMillis
+
                                             val diferencia = final.minus(actual)
                                             //diferencia = diferencia.minus(3600000.toLong())
                                             i.horasVida.timeInMillis = diferencia
@@ -436,7 +440,7 @@ class HomeActivity : AppCompatActivity() {
                             val array = DispMasc.convertir(respuesta)
                             if(array.size==1){
                                 val pack = array[0]
-                                mascarilla.lavados--
+                                //mascarilla.lavados--
                                 mascarilla.activa= false
                                 mascarilla.lavar = true
 

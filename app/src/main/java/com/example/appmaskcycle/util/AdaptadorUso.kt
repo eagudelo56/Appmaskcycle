@@ -64,6 +64,7 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
                 if(mascarilla.lavar){
                     mascarilla.activa = false
                     mascarilla.lavar = false
+                    mascarilla.lavados--
                     cambiarBtnUsar()
                     actualizarUso(
                         content,
@@ -214,13 +215,17 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
         private fun pausarMascarilla(cont: Context,mascarilla: UsoMasc){
             /*pausa - inicio*/
             val actualCal = Calendar.getInstance()
-            actualCal.set(Calendar.ZONE_OFFSET,0)
+            //actualCal.set(Calendar.ZONE_OFFSET,0)
             val actual = actualCal.timeInMillis
             if(actual<mascarilla.final.timeInMillis){
                 mascarilla.activa = false
                 quitarAlarma(mascarilla,cont)
 
                 val final = mascarilla.final.timeInMillis
+
+                actualCal.set(Calendar.ZONE_OFFSET,0)
+                val actual = actualCal.timeInMillis
+
                 var diferencia = final.minus(actual)
                 //diferencia = diferencia.minus(3600000.toLong())
 
