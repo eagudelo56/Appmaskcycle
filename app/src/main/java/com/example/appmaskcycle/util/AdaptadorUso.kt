@@ -216,21 +216,21 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
             /*pausa - inicio*/
             val actualCal = Calendar.getInstance()
             //actualCal.set(Calendar.ZONE_OFFSET,0)
-            val actual = actualCal.timeInMillis
-            if(actual<mascarilla.final.timeInMillis){
+            val actual = actualCal.time.time
+            val final = mascarilla.final.time.time
+            if(actual<final){
                 mascarilla.activa = false
                 quitarAlarma(mascarilla,cont)
 
-                val final = mascarilla.final.timeInMillis
+                val diferencia = final - actual
+                val hour = diferencia / (60 * 60 * 1000)
+                val min = diferencia / (60 * 1000) % 60
+                val s = diferencia / 1000 % 60
 
-                actualCal.set(Calendar.ZONE_OFFSET,0)
-                val actual = actualCal.timeInMillis
+                mascarilla.horasVida.set(Calendar.HOUR_OF_DAY,hour.toInt())
+                mascarilla.horasVida.set(Calendar.MINUTE,min.toInt())
+                mascarilla.horasVida.set(Calendar.SECOND,s.toInt())
 
-                var diferencia = final.minus(actual)
-                //diferencia = diferencia.minus(3600000.toLong())
-
-                //diferencia = diferencia.plus(600000.toLong())
-                mascarilla.horasVida.timeInMillis = diferencia
                 actualizarUso(
                     cont,
                     mascarilla.id,

@@ -10,6 +10,7 @@ class ConvertirDb {
 
         fun getCalendarFromString(str:String) : Calendar {
             val cal = Calendar.getInstance()
+            sdf.timeZone = TimeZone.getTimeZone(cal.timeZone.id)
             val aux = sdf.parse(str)
             if(aux!=null){
                 cal.time = aux

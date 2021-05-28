@@ -196,10 +196,10 @@ class HomeActivity : AppCompatActivity() {
                                 //se cambia el atributo horasVida de los objetos
                                 //y se actualiza la base de datos
                                 val actualCal = Calendar.getInstance()
-                                //actualCal.set(Calendar.ZONE_OFFSET, 0)
-                                val actual = actualCal.timeInMillis
+                                val actual = actualCal.time.time
                                 for (i in array) {
-                                    if (i.final.timeInMillis < actual
+                                    val final = i.final.time.time
+                                    if (final < actual
                                         && i.activa
                                     ) {
                                         if(i.lavados>0){
@@ -216,16 +216,14 @@ class HomeActivity : AppCompatActivity() {
                                     } else {
                                         if (i.activa) {
 
+                                            val diferencia = final - actual
+                                            val hour = diferencia / (60 * 60 * 1000)
+                                            val min = diferencia / (60 * 1000) % 60
+                                            val s = diferencia / 1000 % 60
 
-                                            val final = i.final.timeInMillis
-
-                                            actualCal.set(Calendar.ZONE_OFFSET, 0)
-                                            val actual = actualCal.timeInMillis
-
-                                            val diferencia = final.minus(actual)
-                                            //diferencia = diferencia.minus(3600000.toLong())
-                                            i.horasVida.timeInMillis = diferencia
-
+                                            i.horasVida.set(Calendar.HOUR_OF_DAY,hour.toInt())
+                                            i.horasVida.set(Calendar.MINUTE,min.toInt())
+                                            i.horasVida.set(Calendar.SECOND,s.toInt())
                                             actualizarUso(
                                                 i.id,
                                                 ConvertirDb.getStringFromCalendar(i.inicio),
