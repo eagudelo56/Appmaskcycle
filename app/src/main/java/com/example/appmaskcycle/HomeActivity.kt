@@ -60,6 +60,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         Thread{
+            //hilo actulizar pantalla
             while(true){
                 cambiarPantalla()
                 Thread.sleep(30000)
