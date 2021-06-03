@@ -59,6 +59,12 @@ class HomeActivity : AppCompatActivity() {
             cambiarPantalla()
         }
 
+        Thread{
+            while(true){
+                cambiarPantalla()
+                Thread.sleep(30000)
+            }
+        }.start()
     }
 
     /*dispatchTouchEvent el evento se propaga al reves
