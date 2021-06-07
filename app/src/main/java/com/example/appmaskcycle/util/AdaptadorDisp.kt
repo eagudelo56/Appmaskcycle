@@ -110,6 +110,7 @@ class AdaptadorDisp(private var content:Context, private var array:ArrayList<Dis
                             if(respuesta!=null){
                                 val ultimaUso = UsoMasc.convertir(respuesta)[0]
                                 ponerAlarma(cont, ultimaUso)
+                                updateStock(cont,mascarilla)
                             }
                         }
 
@@ -191,9 +192,12 @@ class AdaptadorDisp(private var content:Context, private var array:ArrayList<Dis
                             if(respuesta!=null){
                                 val codigo = respuesta.codigoError
                                 if(codigo == 1){
-                                    updateStock(cont,mascarilla)
+
                                     //(cont,"bien", Toast.LENGTH_LONG).show()
+
                                     recuperarUltimaUso(mascarilla, cont)
+
+
                                 }else{
                                     //Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
                                 }
