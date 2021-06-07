@@ -49,7 +49,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvManualDisp"
-                tools:srcCompat="@drawable/im_manualDisp" />
+                tools:srcCompat="@drawable/im_manual_disp" />
 
             <TextView
                 android:id="@+id/tvManualEnuso"
@@ -74,7 +74,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvManualEnuso"
-                tools:srcCompat="@drawable/im_manualEnuso" />
+                tools:srcCompat="@drawable/im_manual_enuso" />
 
             <TextView
                 android:id="@+id/tvManualPausar"
@@ -99,7 +99,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvManualPausar"
-                tools:srcCompat="@drawable/im_manualPausar" />
+                tools:srcCompat="@drawable/im_manual_pausar" />
 
             <TextView
                 android:id="@+id/tvManualActivar"
@@ -124,7 +124,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvManualActivar"
-                tools:srcCompat="@drawable/im_manualActivar" />
+                tools:srcCompat="@drawable/im_manual_activar" />
 
             <TextView
                 android:id="@+id/tvManualLavar"
@@ -151,7 +151,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvManualLavar"
-                tools:srcCompat="@drawable/im_manualLavar" />
+                tools:srcCompat="@drawable/im_manual_lavar" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
