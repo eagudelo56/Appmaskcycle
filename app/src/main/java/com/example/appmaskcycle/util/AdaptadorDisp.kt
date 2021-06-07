@@ -145,7 +145,7 @@ class AdaptadorDisp(private var content:Context, private var array:ArrayList<Dis
                             if(respuesta!=null){
                                 val codigo = respuesta.codigoError
                                 if(codigo == 1){
-                                    Toast.makeText(cont,"bien", Toast.LENGTH_LONG).show()
+                                    //Toast.makeText(cont,"bien", Toast.LENGTH_LONG).show()
                                     /*
                                     * se termina el home activity y se vuelve a lanzar
                                     * para refrescar los datos
@@ -159,7 +159,7 @@ class AdaptadorDisp(private var content:Context, private var array:ArrayList<Dis
                                     cont.startActivity(Intent(cont,HomeActivity::class.java))
                                     cont .overridePendingTransition(0, 0)
                                 }else{
-                                    Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
+                                    //Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
                                 }
                             }
                         }
@@ -192,10 +192,10 @@ class AdaptadorDisp(private var content:Context, private var array:ArrayList<Dis
                                 val codigo = respuesta.codigoError
                                 if(codigo == 1){
                                     updateStock(cont,mascarilla)
-                                    Toast.makeText(cont,"bien", Toast.LENGTH_LONG).show()
+                                    //(cont,"bien", Toast.LENGTH_LONG).show()
                                     recuperarUltimaUso(mascarilla, cont)
                                 }else{
-                                    Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
+                                    //Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
                                 }
                             }
                         }

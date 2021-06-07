@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 object : Callback<List<DataUsuarios>>{ /*palabra clave del metodo*/
                     override fun onFailure(call: Call<List<DataUsuarios>>, t: Throwable) { /*ERROR*/
                         Toast.makeText(cont,t.localizedMessage,Toast.LENGTH_LONG).show()
-                        Toast.makeText(cont," no funciona",Toast.LENGTH_LONG).show()
+                        //Toast.makeText(cont," no funciona",Toast.LENGTH_LONG).show()
 
                     }
                     override fun onResponse( /*esta bien*/

@@ -121,9 +121,9 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
                             if(respuesta!=null){
                                 val codigo = respuesta.codigoError
                                 if(codigo == 1){
-                                    Toast.makeText(cont,"bien Eli", Toast.LENGTH_LONG).show()
+                                    //Toast.makeText(cont,"bien Eli", Toast.LENGTH_LONG).show()
                                 }else{
-                                    Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
+                                    //Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
                                 }
                             }
                         }
@@ -157,7 +157,7 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
                             if(respuesta!=null){
                                 val codigo = respuesta.codigoError
                                 if(codigo == 1){
-                                    Toast.makeText(cont,"bien actua", Toast.LENGTH_LONG).show()
+                                    //Toast.makeText(cont,"bien actua", Toast.LENGTH_LONG).show()
                                     /*
                                     * se termina el home activity y se vuelve a lanzar
                                     * para refrescar los datos
@@ -171,7 +171,7 @@ class AdaptadorUso (private var content:Context, private var array:ArrayList<Uso
                                     cont.startActivity(Intent(cont, HomeActivity::class.java))
                                     cont .overridePendingTransition(0, 0)
                                 }else{
-                                    Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
+                                    //Toast.makeText(cont,"mal", Toast.LENGTH_LONG).show()
                                 }
                             }
                         }

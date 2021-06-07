@@ -40,6 +40,16 @@
     <string name="tiempo_parrafo5">Tiempo: depende de la mascarilla.</string>
 
     <!-- Manual -->
-    <string name="manual_">eeeeee</string>
+    <string name="titulo_manual">Manual de usuario de la app</string>
+
+    <string name="manual_add_disp">Para añadir un nuevo paquete de mascarillas a la pantalla de "Disponibles", debe pulsar en el botón (+) desde el "Home". En la pantalla del formulario existen dos maneras de terminar el proceso; rellenando el formulario con los datos del paquete de mascarillas o escaneando el código QR del paquete.</string>
+
+    <string name="manual_add_enuso">Para añadir una mascarilla a la pantalla de "En uso", debe pulsar en el botón de "añadir mascarilla" del paquete en el que se ubique. </string>
+
+    <string name="manual_pausarmasc">Para pausar una mascarilla, debe pulsar el botón amarillo de la mascarilla para que se detenga el contador del tiempo.</string>
+
+    <string name="manual_activarmasc">Para activar una mascarilla, debe pulsar el botón verde de la mascarilla para que el contador del tiempo continue su función.</string>
+
+    <string name="manual_lavarmasc">Para lavar una mascarilla, debe pulsar el botón azul de la mascarilla para que se reinicie el contador de tiempo.</string>
 
 </resources>
